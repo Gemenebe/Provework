@@ -98,7 +98,7 @@ export default function PassportPage({
         }}
       >
         <div
-          className="section-max"
+          className="section-max doc-header-mobile"
           style={{
             padding: "16px 40px",
             display: "flex",
@@ -116,7 +116,7 @@ export default function PassportPage({
               ProveWork
             </span>
           </Link>
-          <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+          <div className="passport-actions-mobile" style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <button
               onClick={() => {
                 const data = JSON.stringify(passport, null, 2);
@@ -154,7 +154,7 @@ export default function PassportPage({
         </div>
       </header>
 
-      <main className="section-max" style={{ padding: "60px 40px 120px", maxWidth: 1180 }}>
+      <main className="section-max main-pad-passport" style={{ padding: "60px 40px 120px", maxWidth: 1180 }}>
         {/* Document title strip */}
         <div
           style={{
@@ -179,6 +179,7 @@ export default function PassportPage({
 
         {/* Bearer header */}
         <section
+          className="stack-md"
           style={{
             display: "grid",
             gridTemplateColumns: "minmax(0, 1.5fr) minmax(0, 1fr)",
@@ -230,7 +231,7 @@ export default function PassportPage({
           </div>
 
           {/* Right: rubber stamp */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 16 }}>
+          <div className="passport-stamp-mobile" style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 16 }}>
             <div className="rubber-stamp" style={{ fontSize: 22, padding: "14px 26px", animation: "stamp 0.6s cubic-bezier(.25,.85,.35,1.15) both" }}>
               ATTESTED
               <span
@@ -248,6 +249,7 @@ export default function PassportPage({
 
         {/* Vital statistics strip */}
         <section
+          className="stat-strip-mobile"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
@@ -295,6 +297,7 @@ export default function PassportPage({
 
         {/* Source signals */}
         <section
+          className="passport-source-mobile"
           style={{
             background: "#FBF6E8",
             border: "1px solid #1A1714",
@@ -302,7 +305,7 @@ export default function PassportPage({
             marginBottom: 56,
           }}
         >
-          <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 2fr)", gap: 32, alignItems: "start" }}>
+          <div className="stack-md" style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) minmax(0, 2fr)", gap: 32, alignItems: "start" }}>
             <div>
               <div
                 className="font-mono"
@@ -329,6 +332,7 @@ export default function PassportPage({
 
         {/* Footer attestation */}
         <section
+          className="stack-md"
           style={{
             display: "grid",
             gridTemplateColumns: "auto minmax(0, 1fr) auto",
@@ -348,7 +352,7 @@ export default function PassportPage({
               specific artifact that proves it. Verify any of them in one click.
             </p>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
+          <div className="signature-mobile" style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
             <span className="font-mono" style={{ fontSize: 10, letterSpacing: "0.18em", color: "#8C8273" }}>
               SIGNATURE
             </span>
@@ -379,6 +383,7 @@ function PassportClaimEntry({
 }) {
   return (
     <article
+      className="passport-claim-row"
       style={{
         display: "grid",
         gridTemplateColumns: "100px minmax(0, 1fr) 140px",
@@ -387,9 +392,9 @@ function PassportClaimEntry({
         borderBottom: isLast ? "1px solid #1A1714" : "1px solid rgba(26,23,20,0.18)",
       }}
     >
-      <div className="numeral serif-italic">{String(index + 1).padStart(2, "0")}</div>
+      <div className="numeral serif-italic claim-num">{String(index + 1).padStart(2, "0")}</div>
 
-      <div>
+      <div className="claim-main">
         <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap", marginBottom: 12 }}>
           <span
             className="font-mono"
@@ -421,6 +426,7 @@ function PassportClaimEntry({
                   href={e.uri}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="evidence-row-mobile"
                   style={{
                     display: "grid",
                     gridTemplateColumns: "26px auto 1fr auto",
@@ -452,7 +458,7 @@ function PassportClaimEntry({
         )}
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 12 }}>
+      <div className="claim-confidence" style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 12 }}>
         <ConfidenceMark confidence={claim.confidence} />
         <button
           onClick={onToggle}
@@ -541,7 +547,7 @@ function Stat({ n, label, highlight = false }: { n: number; label: string; highl
 
 function SourceLine({ label, value }: { label: string; value: string }) {
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 240px) 1fr", gap: 18, alignItems: "baseline", paddingBottom: 12, borderBottom: "1px dashed #D9CFB8" }}>
+    <div className="stack-md-tight" style={{ display: "grid", gridTemplateColumns: "minmax(0, 240px) 1fr", gap: 18, alignItems: "baseline", paddingBottom: 12, borderBottom: "1px dashed #D9CFB8" }}>
       <span className="font-mono" style={{ fontSize: 11, letterSpacing: "0.14em", color: "#8C8273", textTransform: "uppercase" }}>
         {label}
       </span>

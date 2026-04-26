@@ -212,6 +212,7 @@ export default function DiscoverPage() {
 
           {/* Title block */}
           <div
+            className="stack-md"
             style={{
               display: "grid",
               gridTemplateColumns: "minmax(0, 1.5fr) minmax(0, 1fr)",
@@ -246,7 +247,7 @@ export default function DiscoverPage() {
               </p>
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 12 }}>
+            <div className="discover-mark-mobile" style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 12 }}>
               <PassportMark size={88} />
               <span className="font-mono" style={{ fontSize: 10, letterSpacing: "0.18em", color: "#8C8273", textAlign: "right" }}>
                 OPEN TALENT PROTOCOL · v0.1
@@ -318,6 +319,7 @@ export default function DiscoverPage() {
 
           {/* Filters */}
           <section
+            className="stack-md"
             style={{
               display: "grid",
               gridTemplateColumns: "minmax(0, 1.5fr) minmax(0, 1fr) auto",
@@ -457,6 +459,7 @@ export default function DiscoverPage() {
 
           {/* Footer */}
           <div
+            className="stack-md"
             style={{
               marginTop: 56,
               display: "grid",
@@ -500,6 +503,7 @@ function RecordEntry({ talent, index, isLast }: { talent: Talent; index: number;
   return (
     <Link
       href={`/passport/${talent.slug}`}
+      className="ledger-row"
       style={{
         display: "grid",
         gridTemplateColumns: "100px minmax(0, 1.6fr) minmax(0, 1fr) 140px",
@@ -517,12 +521,12 @@ function RecordEntry({ talent, index, isLast }: { talent: Talent; index: number;
       onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.background = "transparent")}
     >
       {/* numeral */}
-      <div className="numeral serif-italic" style={{ paddingLeft: 4 }}>
+      <div className="numeral serif-italic ledger-num" style={{ paddingLeft: 4 }}>
         {String(index + 1).padStart(2, "0")}
       </div>
 
       {/* identity + skills */}
-      <div>
+      <div className="ledger-main">
         <div className="font-mono" style={{ fontSize: 10.5, color: "#8C8273", letterSpacing: "0.14em", marginBottom: 6 }}>
           BEARER
         </div>
@@ -562,7 +566,7 @@ function RecordEntry({ talent, index, isLast }: { talent: Talent; index: number;
       </div>
 
       {/* skills */}
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 6, alignContent: "flex-start", paddingTop: 22 }}>
+      <div className="ledger-meta" style={{ display: "flex", flexWrap: "wrap", gap: 6, alignContent: "flex-start", paddingTop: 22 }}>
         {talent.skills.map((s) => (
           <span
             key={s}
@@ -584,7 +588,7 @@ function RecordEntry({ talent, index, isLast }: { talent: Talent; index: number;
       </div>
 
       {/* score + status */}
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 12 }}>
+      <div className="ledger-action" style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 12 }}>
         <div
           className="serif-display"
           style={{

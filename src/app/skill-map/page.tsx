@@ -4,25 +4,43 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import PassportMark from "@/components/PassportMark";
 
 /* ─── DYNAMIC IMPORT (fixes Recharts SSR width -1 bug) ─────── */
-const Charts = dynamic(() => import("@/components/SkillMapCharts"), { ssr: false, loading: () => (
-  <div style={{ height: 300, display: "flex", alignItems: "center", justifyContent: "center" }}>
-    <div style={{ fontSize: 13, color: "#6B7280" }}>Loading chart…</div>
-  </div>
-) });
+const Charts = dynamic(() => import("@/components/SkillMapCharts"), {
+  ssr: false,
+  loading: () => (
+    <div
+      style={{
+        height: 320,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        border: "1px solid rgba(26,23,20,0.18)",
+        background: "#FBF6E8",
+      }}
+    >
+      <span
+        className="font-mono"
+        style={{ fontSize: 11, letterSpacing: "0.18em", color: "#8C8273", textTransform: "uppercase" }}
+      >
+        Plotting…
+      </span>
+    </div>
+  ),
+});
 
 /* ─── DATA ───────────────────────────────────────────────────── */
 export const BUBBLE_DATA = [
-  { x: 20, y: 60, z: 85, name: "Frontend",    count: 48200, color: "#0F2D52" },
-  { x: 50, y: 40, z: 70, name: "Backend",     count: 39800, color: "#2A6FBF" },
-  { x: 75, y: 70, z: 55, name: "Data Science",count: 28400, color: "#1a4a80" },
-  { x: 35, y: 25, z: 45, name: "Mobile",      count: 22100, color: "#3a7fd5" },
-  { x: 65, y: 20, z: 35, name: "DevOps",      count: 17600, color: "#0d2440" },
-  { x: 15, y: 80, z: 60, name: "UI/UX Design",count: 31200, color: "#2560a8" },
-  { x: 85, y: 50, z: 30, name: "Blockchain",  count: 14300, color: "#3d6fa0" },
-  { x: 50, y: 80, z: 50, name: "Product Mgmt",count: 25700, color: "#1e3f6d" },
-  { x: 30, y: 50, z: 40, name: "AI/ML",       count: 19800, color: "#4a7fb5" },
+  { x: 20, y: 60, z: 85, name: "Frontend",     count: 48200, color: "#1A1714" },
+  { x: 50, y: 40, z: 70, name: "Backend",      count: 39800, color: "#2D5F3F" },
+  { x: 75, y: 70, z: 55, name: "Data Science", count: 28400, color: "#7C1D1D" },
+  { x: 35, y: 25, z: 45, name: "Mobile",       count: 22100, color: "#4A423A" },
+  { x: 65, y: 20, z: 35, name: "DevOps",       count: 17600, color: "#1F4029" },
+  { x: 15, y: 80, z: 60, name: "UI/UX Design", count: 31200, color: "#5C8970" },
+  { x: 85, y: 50, z: 30, name: "Blockchain",   count: 14300, color: "#6B5D4F" },
+  { x: 50, y: 80, z: 50, name: "Product Mgmt", count: 25700, color: "#8C8273" },
+  { x: 30, y: 50, z: 40, name: "AI/ML",        count: 19800, color: "#A88B5F" },
 ];
 
 export const BAR_DATA = [
@@ -53,238 +71,627 @@ export const TREND_DATA = [
   { month: "Apr", React: 4820, Python: 4310, TypeScript: 3980, Figma: 3200 },
 ];
 
-const TOP_COUNTRIES = [
-  { country: "Nigeria",       flag: "🇳🇬", talents: 12400, growth: "+18%", color: "#0F2D52" },
-  { country: "Kenya",         flag: "🇰🇪", talents: 9800,  growth: "+24%", color: "#2A6FBF" },
-  { country: "Ghana",         flag: "🇬🇭", talents: 7200,  growth: "+21%", color: "#1a4a80" },
-  { country: "South Africa",  flag: "🇿🇦", talents: 6800,  growth: "+12%", color: "#2A6FBF" },
-  { country: "Egypt",         flag: "🇪🇬", talents: 5600,  growth: "+16%", color: "#0F2D52" },
-  { country: "Ethiopia",      flag: "🇪🇹", talents: 4200,  growth: "+29%", color: "#2A6FBF" },
+interface CountryRow {
+  country: string;
+  flag: string;
+  talents: number;
+  growth: string;
+}
+
+const TOP_COUNTRIES: CountryRow[] = [
+  { country: "Nigeria",      flag: "🇳🇬", talents: 12400, growth: "+18%" },
+  { country: "Kenya",        flag: "🇰🇪", talents: 9800,  growth: "+24%" },
+  { country: "Ghana",        flag: "🇬🇭", talents: 7200,  growth: "+21%" },
+  { country: "South Africa", flag: "🇿🇦", talents: 6800,  growth: "+12%" },
+  { country: "Egypt",        flag: "🇪🇬", talents: 5600,  growth: "+16%" },
+  { country: "Ethiopia",     flag: "🇪🇹", talents: 4200,  growth: "+29%" },
 ];
 
-const STATS = [
-  { label: "Skills Tracked",   display: "2.4M",        icon: "◈" },
-  { label: "Fastest Growing",  display: "TypeScript",   icon: "⬡" },
-  { label: "Top Region",       display: "West Africa",  icon: "📍" },
-  { label: "New This Month",   display: "+12,400",      icon: "↑" },
-];
-
-const REGIONS   = ["All Regions", "West Africa", "East Africa", "North Africa", "Southern Africa", "Global"];
-const PERIODS   = ["6M", "1Y", "3Y"];
-const CATS      = ["All Skills", "Frontend", "Backend", "Data Science", "Mobile", "DevOps", "Design"];
+const REGIONS = ["All Regions", "West Africa", "East Africa", "North Africa", "Southern Africa", "Global"];
+const PERIODS = ["6M", "1Y", "3Y"];
+const CATS    = ["All", "Frontend", "Backend", "Data Science", "Mobile", "DevOps", "Design"];
 
 export default function SkillMapPage() {
-  const [region, setRegion]   = useState("All Regions");
-  const [period, setPeriod]   = useState("1Y");
-  const [category, setCategory] = useState("All Skills");
+  const [region, setRegion] = useState("All Regions");
+  const [period, setPeriod] = useState("1Y");
+  const [category, setCategory] = useState("All");
+
+  const totalSkills = BAR_DATA.reduce((acc, b) => acc + b.count, 0);
+  const maxCountry = TOP_COUNTRIES[0].talents;
 
   return (
     <>
       <Navbar />
-      <main style={{ minHeight: "100vh", paddingBottom: 80 }}>
+      <main style={{ minHeight: "100vh", paddingTop: 110, position: "relative", zIndex: 1 }}>
+        <div className="section-max" style={{ paddingBottom: 100 }}>
+          {/* ── DOC STRIP ─────────────────────── */}
+          <div
+            className="doc-strip-mobile"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              paddingBottom: 14,
+              borderBottom: "1px solid #1A1714",
+              marginBottom: 56,
+              flexWrap: "wrap",
+              gap: 24,
+            }}
+          >
+            <span className="font-mono eyebrow-faint">FILE 05 · OPEN ATLAS</span>
+            <span className="font-mono eyebrow-faint">Topography of issued passports · refreshed daily</span>
+            <span className="font-mono eyebrow-faint">Updated Apr 26, 2026</span>
+          </div>
 
-        {/* ── HERO HEADER ── */}
-        <div style={{
-          background: "linear-gradient(140deg, #0a1f3a 0%, #0F2D52 40%, #1a4a80 70%, #2A6FBF 100%)",
-          paddingTop: 130, paddingBottom: 70, position: "relative", overflow: "hidden",
-        }}>
-          <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.055) 1.2px, transparent 1.2px)", backgroundSize: "28px 28px", pointerEvents: "none" }} />
-          <div style={{ position: "absolute", bottom: -80, right: "5%", width: 480, height: 480, borderRadius: "50%", background: "rgba(42,111,191,0.15)", filter: "blur(90px)", pointerEvents: "none" }} />
-
-          <div className="section-max" style={{ position: "relative" }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: 14, maxWidth: 600 }}>
-              <span style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.50)", letterSpacing: "2px", textTransform: "uppercase" }}>
-                <span style={{ width: 20, height: 1, background: "rgba(255,255,255,0.30)" }} />
-                Data Intelligence
-              </span>
-              <h1 style={{ fontFamily: "var(--font-sora-var), sans-serif", fontWeight: 800, fontSize: "clamp(34px,4.5vw,56px)", color: "#FFFFFF", lineHeight: 1.06, letterSpacing: "-2px" }}>
-                The Global<br />
-                <span style={{ color: "rgba(255,255,255,0.55)" }}>Skill Landscape</span>
+          {/* ── TITLE BLOCK ───────────────────── */}
+          <div
+            className="stack-md"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "minmax(0, 1.5fr) minmax(0, 1fr)",
+              gap: 56,
+              alignItems: "end",
+              marginBottom: 56,
+            }}
+          >
+            <div>
+              <div
+                className="font-mono"
+                style={{ fontSize: 11, letterSpacing: "0.22em", color: "#2D5F3F", marginBottom: 18 }}
+              >
+                ¶ Atlas · Volume I
+              </div>
+              <h1 className="serif-display heading-xl" style={{ marginBottom: 22 }}>
+                The atlas of
+                <br />
+                global <span className="serif-italic">skill signal</span>.
               </h1>
-              <p style={{ fontSize: 16, color: "rgba(255,255,255,0.60)", lineHeight: 1.75, maxWidth: 500 }}>
-                Real-time intelligence on how skills are distributed, growing, and shifting across the global workforce. Updated daily from verified passport data.
+              <p
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: 19,
+                  lineHeight: 1.45,
+                  color: "#4A423A",
+                  fontWeight: 400,
+                  fontVariationSettings: '"opsz" 30',
+                  maxWidth: 600,
+                }}
+              >
+                A daily-refreshed topography of where verified evidence is being generated.
+                Every datapoint descends from a passport that cites its receipts. The map
+                is open, the API is open, the protocol is open.
               </p>
             </div>
-          </div>
-        </div>
 
-        <div className="section-max" style={{ paddingTop: 44 }}>
-
-          {/* ── STAT CALLOUTS ── */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16, marginBottom: 36 }}>
-            {STATS.map((s) => (
-              <div key={s.label} style={{
-                background: "rgba(255,255,255,0.75)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
-                border: "1px solid rgba(255,255,255,0.90)", borderRadius: 16,
-                boxShadow: "0 2px 16px rgba(15,45,82,0.07)", padding: "20px 22px",
-                display: "flex", alignItems: "center", gap: 16,
-              }}>
-                <div style={{
-                  width: 42, height: 42, borderRadius: 12, flexShrink: 0,
-                  background: "rgba(15,45,82,0.07)",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: 18,
-                }}>
-                  {s.icon}
-                </div>
-                <div>
-                  <div style={{ fontFamily: "var(--font-sora-var)", fontWeight: 800, fontSize: 22, color: "#0F2D52", letterSpacing: "-0.5px" }}>
-                    {s.display}
-                  </div>
-                  <div style={{ fontSize: 12, color: "#6B7280", marginTop: 2 }}>{s.label}</div>
-                </div>
-              </div>
-            ))}
+            <div
+              className="discover-mark-mobile"
+              style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 12 }}
+            >
+              <PassportMark size={88} />
+              <span
+                className="font-mono"
+                style={{ fontSize: 10, letterSpacing: "0.18em", color: "#8C8273", textAlign: "right" }}
+              >
+                OPEN TALENT PROTOCOL · v0.1
+              </span>
+            </div>
           </div>
 
-          {/* ── FILTERS ── */}
-          <div style={{
-            display: "flex", flexWrap: "wrap", alignItems: "center", gap: 12, marginBottom: 36,
-            background: "rgba(255,255,255,0.75)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
-            border: "1px solid rgba(255,255,255,0.90)", borderRadius: 14,
-            boxShadow: "0 2px 12px rgba(15,45,82,0.06)", padding: "14px 20px",
-          }}>
-            <span style={{ fontSize: 12, fontWeight: 700, color: "#0F2D52" }}>Filter:</span>
-            {[
-              { label: "Region",   options: REGIONS,  value: region,   set: setRegion },
-              { label: "Category", options: CATS,     value: category, set: setCategory },
-            ].map(f => (
-              <div key={f.label} style={{ position: "relative" }}>
-                <select
-                  value={f.value}
-                  onChange={e => f.set(e.target.value)}
-                  style={{
-                    border: "1.5px solid rgba(15,45,82,0.10)", borderRadius: 10,
-                    padding: "8px 32px 8px 12px", fontSize: 12, fontWeight: 600, color: "#0F2D52",
-                    background: "rgba(255,255,255,0.80)", outline: "none", appearance: "none",
-                    cursor: "pointer",
-                  }}
-                >
-                  {f.options.map(o => <option key={o}>{o}</option>)}
-                </select>
-                <span style={{ position: "absolute", right: 10, top: "50%", transform: "translateY(-50%)", fontSize: 10, color: "#6B7280", pointerEvents: "none" }}>▾</span>
-              </div>
-            ))}
-            <div style={{ display: "flex", alignItems: "center", gap: 2, background: "rgba(15,45,82,0.05)", borderRadius: 10, padding: 3, marginLeft: "auto" }}>
-              {PERIODS.map(t => (
-                <button key={t} onClick={() => setPeriod(t)} style={{
-                  padding: "6px 16px", borderRadius: 8,
-                  fontSize: 12, fontWeight: 700,
-                  background: period === t ? "#0F2D52" : "transparent",
-                  color: period === t ? "#FAF8F4" : "#6B7280",
-                  border: "none", cursor: "pointer",
-                  boxShadow: period === t ? "0 1px 6px rgba(15,45,82,0.22)" : "none",
-                  transition: "all 0.18s",
-                }}>
-                  {t}
-                </button>
+          {/* ── FILTERS ───────────────────────── */}
+          <section
+            className="stack-md"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "minmax(0, 1.6fr) minmax(0, 1.6fr) auto",
+              gap: 36,
+              alignItems: "start",
+              padding: "20px 0",
+              borderTop: "1px dashed rgba(26,23,20,0.18)",
+              borderBottom: "1px dashed rgba(26,23,20,0.18)",
+              marginBottom: 48,
+            }}
+          >
+            <FilterGroup
+              label="Filter · Region"
+              options={REGIONS}
+              value={region}
+              onChange={setRegion}
+            />
+            <FilterGroup
+              label="Filter · Category"
+              options={CATS}
+              value={category}
+              onChange={setCategory}
+            />
+            <PeriodToggle period={period} setPeriod={setPeriod} />
+          </section>
+
+          {/* ── VITAL STATS STRIP ─────────────── */}
+          <section
+            className="stat-strip-mobile"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
+              borderTop: "1px solid #1A1714",
+              borderBottom: "1px solid #1A1714",
+              marginBottom: 80,
+            }}
+          >
+            <Stat value="2.4M" label="Skills tracked" />
+            <Stat value="TypeScript" italic label="Fastest growing" caption="+18% week-over-week" highlight />
+            <Stat value="W·Africa" italic label="Top region" caption="29.6k verified bearers" />
+            <Stat value="+12,400" label="New this month" />
+          </section>
+
+          {/* ── §II · UNIVERSE ─────────────────── */}
+          <section style={{ marginBottom: 80 }}>
+            <SectionHead numeral="¶ II" eyebrow="Universe" title="Where the signal concentrates." />
+            <Charts />
+          </section>
+
+          {/* ── §III · GEOGRAPHY ───────────────── */}
+          <section style={{ marginBottom: 72 }}>
+            <SectionHead numeral="¶ III" eyebrow="Geography" title="Top countries by issued passports." />
+
+            <div style={{ borderTop: "1px solid #1A1714", borderBottom: "1px solid #1A1714" }}>
+              {TOP_COUNTRIES.map((c, i) => (
+                <CountryEntry
+                  key={c.country}
+                  country={c}
+                  index={i}
+                  isLast={i === TOP_COUNTRIES.length - 1}
+                  max={maxCountry}
+                />
               ))}
             </div>
-          </div>
+          </section>
 
-          {/* ── CHARTS ── */}
-          <Charts />
-
-          {/* ── TOP COUNTRIES TABLE ── */}
-          <div style={{ marginTop: 32 }}>
-            <div style={{
-              background: "rgba(255,255,255,0.78)", backdropFilter: "blur(18px)", WebkitBackdropFilter: "blur(18px)",
-              border: "1px solid rgba(255,255,255,0.90)", borderRadius: 20,
-              boxShadow: "0 4px 24px rgba(15,45,82,0.07)", padding: "28px 32px",
-            }}>
-              <div style={{ marginBottom: 22 }}>
-                <h2 style={{ fontFamily: "var(--font-sora-var)", fontWeight: 700, fontSize: 18, color: "#0D1B2A", letterSpacing: "-0.3px", marginBottom: 4 }}>
-                  Top Countries by Talent Volume
-                </h2>
-                <p style={{ fontSize: 13, color: "#6B7280" }}>Verified professionals with at least one confirmed skill signal</p>
-              </div>
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                {/* Header */}
-                <div style={{ display: "grid", gridTemplateColumns: "1fr auto auto auto", gap: 16, padding: "0 4px 12px", borderBottom: "1px solid rgba(15,45,82,0.08)" }}>
-                  {["Country", "Verified Talents", "Growth MoM", ""].map((h, i) => (
-                    <span key={h} style={{ fontSize: 11, fontWeight: 700, color: "#6B7280", letterSpacing: "1px", textTransform: "uppercase", textAlign: i > 0 ? "right" : "left" }}>{h}</span>
-                  ))}
-                </div>
-                {TOP_COUNTRIES.map((c, i) => {
-                  const maxTalents = TOP_COUNTRIES[0].talents;
-                  const barPct = (c.talents / maxTalents) * 100;
-                  return (
-                    <div key={c.country} style={{
-                      display: "grid", gridTemplateColumns: "1fr auto auto auto", gap: 16, padding: "14px 4px",
-                      borderBottom: i < TOP_COUNTRIES.length - 1 ? "1px solid rgba(15,45,82,0.05)" : "none",
-                      alignItems: "center",
-                    }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                        <span style={{ fontSize: 20 }}>{c.flag}</span>
-                        <div>
-                          <div style={{ fontFamily: "var(--font-sora-var)", fontWeight: 600, fontSize: 14, color: "#0D1B2A" }}>{c.country}</div>
-                          <div style={{ height: 3, width: `${barPct}%`, maxWidth: 180, background: c.color, borderRadius: 999, marginTop: 5, opacity: 0.65, transition: "width 0.6s ease" }} />
-                        </div>
-                      </div>
-                      <span style={{ fontSize: 14, fontWeight: 700, color: "#0D1B2A", textAlign: "right" }}>
-                        {c.talents.toLocaleString()}
-                      </span>
-                      <span style={{
-                        fontSize: 12, fontWeight: 700, color: "#16a34a",
-                        background: "rgba(34,197,94,0.09)", padding: "3px 10px",
-                        borderRadius: 999, border: "1px solid rgba(34,197,94,0.20)",
-                        textAlign: "right", whiteSpace: "nowrap",
-                      }}>
-                        {c.growth}
-                      </span>
-                      <div style={{ textAlign: "right" }}>
-                        <span style={{
-                          fontSize: 11, fontWeight: 600, color: "#2A6FBF",
-                          background: "rgba(42,111,191,0.08)", padding: "3px 10px",
-                          borderRadius: 999, border: "1px solid rgba(42,111,191,0.15)",
-                          cursor: "pointer", whiteSpace: "nowrap",
-                        }}>
-                          View →
-                        </span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-
-          {/* ── INSIGHT BANNER ── */}
-          <div style={{
-            marginTop: 28, borderRadius: 18, overflow: "hidden",
-            background: "linear-gradient(135deg, #0F2D52 0%, #1a4a80 50%, #2A6FBF 100%)",
-            padding: "32px 36px", position: "relative",
-          }}>
-            <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)", backgroundSize: "24px 24px", pointerEvents: "none" }} />
-            <div style={{ position: "absolute", top: -40, right: -40, width: 200, height: 200, borderRadius: "50%", background: "rgba(232,129,58,0.12)", filter: "blur(60px)", pointerEvents: "none" }} />
-            <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 24 }}>
-              <div>
-                <p style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.50)", letterSpacing: "1.8px", textTransform: "uppercase", marginBottom: 8 }}>
-                  🔮 Weekly Insight
-                </p>
-                <h3 style={{ fontFamily: "var(--font-sora-var)", fontWeight: 700, fontSize: 20, color: "#FFFFFF", letterSpacing: "-0.5px", marginBottom: 8 }}>
-                  TypeScript overtook Python in growth velocity this month
-                </h3>
-                <p style={{ fontSize: 14, color: "rgba(255,255,255,0.60)", lineHeight: 1.6, maxWidth: 520 }}>
-                  Driven by the React 19 migration wave, TypeScript verified signals grew 18% week-over-week across West Africa.
-                </p>
-              </div>
-              <button style={{
-                padding: "12px 24px", borderRadius: 12, border: "1px solid rgba(255,255,255,0.25)",
-                background: "rgba(255,255,255,0.10)", color: "#FFFFFF",
-                fontSize: 13, fontWeight: 700, cursor: "pointer", flexShrink: 0,
-                transition: "all 0.18s", whiteSpace: "nowrap",
+          {/* ── §IV · BULLETIN (dark insight strip) ── */}
+          <section
+            className="pad-mobile-md"
+            style={{
+              background: "#1A1714",
+              color: "#F1EBDD",
+              padding: "72px 56px",
+              border: "1px solid #1A1714",
+              marginBottom: 56,
+            }}
+          >
+            <div
+              className="stack-md"
+              style={{
+                display: "grid",
+                gridTemplateColumns: "minmax(0, 1fr) auto",
+                alignItems: "center",
+                gap: 48,
               }}
-              onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.18)"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.10)"; }}
+            >
+              <div>
+                <div
+                  className="font-mono"
+                  style={{
+                    fontSize: 11,
+                    letterSpacing: "0.22em",
+                    color: "#9CCEAB",
+                    marginBottom: 18,
+                  }}
+                >
+                  ¶ IV — Bulletin · Week 17
+                </div>
+                <h3
+                  className="serif-display"
+                  style={{
+                    fontSize: "clamp(28px, 3.6vw, 46px)",
+                    fontWeight: 360,
+                    lineHeight: 1.08,
+                    letterSpacing: "-0.022em",
+                    marginBottom: 18,
+                    fontVariationSettings: '"opsz" 144',
+                  }}
+                >
+                  TypeScript{" "}
+                  <span className="serif-italic" style={{ color: "#9CCEAB" }}>
+                    overtook
+                  </span>{" "}
+                  Python in growth velocity this month.
+                </h3>
+                <p
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontStyle: "italic",
+                    fontSize: 18,
+                    lineHeight: 1.5,
+                    color: "#A8987F",
+                    fontWeight: 400,
+                    fontVariationSettings: '"opsz" 30',
+                    maxWidth: 580,
+                  }}
+                >
+                  &ldquo;Driven by the React 19 migration wave. Verified TypeScript signals
+                  grew 18% week-over-week across West Africa. Backend Python remains the
+                  larger absolute volume.&rdquo;
+                </p>
+              </div>
+
+              <button
+                className="font-mono"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 10,
+                  background: "#F1EBDD",
+                  color: "#1A1714",
+                  padding: "16px 26px",
+                  border: "1px solid #F1EBDD",
+                  fontSize: 12,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  fontWeight: 500,
+                  cursor: "pointer",
+                  whiteSpace: "nowrap",
+                }}
               >
-                Read Full Report →
+                Read full bulletin <span aria-hidden>→</span>
               </button>
             </div>
+          </section>
+
+          {/* ── FOOTER LINE ───────────────────── */}
+          <div
+            className="stack-md"
+            style={{
+              marginTop: 24,
+              display: "grid",
+              gridTemplateColumns: "auto minmax(0, 1fr) auto",
+              gap: 24,
+              padding: "20px 0",
+              borderTop: "1px solid #1A1714",
+              alignItems: "center",
+            }}
+          >
+            <span className="font-mono" style={{ fontSize: 11, color: "#8C8273", letterSpacing: "0.14em" }}>
+              QUERY · GET /api/atlas
+            </span>
+            <span style={{ height: 1, background: "rgba(26,23,20,0.18)" }} />
+            <span
+              className="font-mono"
+              style={{
+                fontSize: 11,
+                color: "#1A1714",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+              }}
+            >
+              {totalSkills.toLocaleString()} signals indexed
+            </span>
           </div>
         </div>
       </main>
       <Footer />
     </>
+  );
+}
+
+/* ─── helpers ─────────────────────────────────────────────────── */
+
+function SectionHead({
+  numeral,
+  eyebrow,
+  title,
+}: {
+  numeral: string;
+  eyebrow: string;
+  title: string;
+}) {
+  return (
+    <div
+      className="stack-md-numeral"
+      style={{
+        marginBottom: 36,
+        display: "grid",
+        gridTemplateColumns: "120px minmax(0, 1fr)",
+        gap: 32,
+        alignItems: "end",
+      }}
+    >
+      <span className="numeral">{numeral}</span>
+      <div>
+        <div
+          className="font-mono"
+          style={{
+            fontSize: 11,
+            letterSpacing: "0.22em",
+            color: "#2D5F3F",
+            textTransform: "uppercase",
+            marginBottom: 12,
+          }}
+        >
+          {eyebrow}
+        </div>
+        <h2 className="serif-display heading-md">{title}</h2>
+      </div>
+    </div>
+  );
+}
+
+function FilterGroup({
+  label,
+  options,
+  value,
+  onChange,
+}: {
+  label: string;
+  options: string[];
+  value: string;
+  onChange: (s: string) => void;
+}) {
+  return (
+    <div>
+      <div
+        className="font-mono"
+        style={{
+          fontSize: 10.5,
+          letterSpacing: "0.18em",
+          color: "#8C8273",
+          textTransform: "uppercase",
+          marginBottom: 12,
+        }}
+      >
+        {label}
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+        {options.map((o) => {
+          const on = value === o;
+          return (
+            <button
+              key={o}
+              onClick={() => onChange(o)}
+              className="font-mono"
+              style={{
+                padding: "5px 11px",
+                background: on ? "#1A1714" : "transparent",
+                color: on ? "#F1EBDD" : "#1A1714",
+                border: "1px solid #1A1714",
+                fontSize: 10.5,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                fontWeight: 500,
+                cursor: "pointer",
+              }}
+            >
+              {o}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function PeriodToggle({
+  period,
+  setPeriod,
+}: {
+  period: string;
+  setPeriod: (s: string) => void;
+}) {
+  return (
+    <div>
+      <div
+        className="font-mono"
+        style={{
+          fontSize: 10.5,
+          letterSpacing: "0.18em",
+          color: "#8C8273",
+          textTransform: "uppercase",
+          marginBottom: 12,
+        }}
+      >
+        Window
+      </div>
+      <div style={{ display: "flex", border: "1px solid #1A1714" }}>
+        {PERIODS.map((p, i) => (
+          <button
+            key={p}
+            onClick={() => setPeriod(p)}
+            className="font-mono"
+            style={{
+              padding: "8px 16px",
+              background: period === p ? "#1A1714" : "transparent",
+              color: period === p ? "#F1EBDD" : "#1A1714",
+              border: "none",
+              borderLeft: i > 0 ? "1px solid #1A1714" : "none",
+              fontSize: 11,
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              fontWeight: 500,
+              cursor: "pointer",
+            }}
+          >
+            {p}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Stat({
+  value,
+  label,
+  caption,
+  italic = false,
+  highlight = false,
+}: {
+  value: string;
+  label: string;
+  caption?: string;
+  italic?: boolean;
+  highlight?: boolean;
+}) {
+  return (
+    <div style={{ padding: "28px 22px", borderRight: "1px solid #1A1714" }}>
+      <div
+        className={italic ? "serif-italic" : "serif-display"}
+        style={{
+          fontSize: italic ? 38 : 56,
+          fontWeight: italic ? 380 : 350,
+          color: highlight ? "#2D5F3F" : "#1A1714",
+          lineHeight: 0.95,
+          letterSpacing: "-0.025em",
+          fontVariationSettings: '"opsz" 144',
+          marginBottom: 10,
+        }}
+      >
+        {value}
+      </div>
+      {caption && (
+        <div
+          style={{
+            fontFamily: "var(--font-display)",
+            fontStyle: "italic",
+            fontSize: 14,
+            color: "#4A423A",
+            marginBottom: 8,
+            fontVariationSettings: '"opsz" 30',
+          }}
+        >
+          {caption}
+        </div>
+      )}
+      <div
+        className="font-mono"
+        style={{
+          fontSize: 11,
+          letterSpacing: "0.16em",
+          color: "#4A423A",
+          textTransform: "uppercase",
+        }}
+      >
+        {label}
+      </div>
+    </div>
+  );
+}
+
+function CountryEntry({
+  country,
+  index,
+  isLast,
+  max,
+}: {
+  country: CountryRow;
+  index: number;
+  isLast: boolean;
+  max: number;
+}) {
+  const barPct = (country.talents / max) * 100;
+  return (
+    <div
+      className="ledger-row"
+      style={{
+        display: "grid",
+        gridTemplateColumns: "100px minmax(0, 1.6fr) minmax(0, 1fr) 140px",
+        gap: 32,
+        padding: "30px 0",
+        borderBottom: isLast ? "none" : "1px solid rgba(26,23,20,0.18)",
+        alignItems: "center",
+        animation: "fade-up 0.4s cubic-bezier(.2,.7,.3,1) both",
+        animationDelay: `${Math.min(index * 30, 180)}ms`,
+      }}
+    >
+      <div className="numeral serif-italic ledger-num" style={{ paddingLeft: 4 }}>
+        {String(index + 1).padStart(2, "0")}
+      </div>
+
+      <div className="ledger-main" style={{ display: "flex", alignItems: "center", gap: 18 }}>
+        <span style={{ fontSize: 30, lineHeight: 1, flexShrink: 0 }} aria-hidden>
+          {country.flag}
+        </span>
+        <div style={{ minWidth: 0, flex: 1 }}>
+          <div
+            className="serif-display"
+            style={{
+              fontSize: 28,
+              fontWeight: 380,
+              letterSpacing: "-0.018em",
+              lineHeight: 1.1,
+              marginBottom: 10,
+            }}
+          >
+            {country.country}
+          </div>
+          <div
+            style={{
+              height: 3,
+              width: `${barPct}%`,
+              maxWidth: 240,
+              background: "#2D5F3F",
+              opacity: 0.7,
+              transition: "width 0.6s ease",
+            }}
+          />
+        </div>
+      </div>
+
+      <div className="ledger-meta" style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+        <div
+          className="serif-display"
+          style={{
+            fontSize: 32,
+            fontWeight: 380,
+            color: "#1A1714",
+            letterSpacing: "-0.018em",
+            lineHeight: 1,
+            fontVariationSettings: '"opsz" 144',
+          }}
+        >
+          {country.talents.toLocaleString()}
+        </div>
+        <div
+          className="font-mono"
+          style={{
+            fontSize: 10,
+            letterSpacing: "0.14em",
+            color: "#8C8273",
+            textTransform: "uppercase",
+          }}
+        >
+          Verified bearers
+        </div>
+      </div>
+
+      <div
+        className="ledger-action"
+        style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 10 }}
+      >
+        <span
+          className="font-mono"
+          style={{
+            fontSize: 10.5,
+            color: "#2D5F3F",
+            letterSpacing: "0.14em",
+            border: "1px solid #2D5F3F",
+            padding: "4px 10px",
+            textTransform: "uppercase",
+          }}
+        >
+          {country.growth} mom
+        </span>
+        <span
+          className="font-mono"
+          style={{
+            fontSize: 10,
+            letterSpacing: "0.14em",
+            color: "#1A1714",
+            borderBottom: "1px solid #1A1714",
+            paddingBottom: 2,
+            textTransform: "uppercase",
+          }}
+        >
+          Open record →
+        </span>
+      </div>
+    </div>
   );
 }

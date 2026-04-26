@@ -605,3 +605,427 @@ body::after {
   color: rgba(26, 23, 20, 0.28);
   font-style: italic;
 }
+
+/* ─── MOBILE / RESPONSIVE OVERRIDES ──────────────────────────────
+   Most pages use inline grids with fixed pixel columns; these
+   classes are added alongside the inline styles and override them
+   via !important on small viewports. */
+
+/* Helpers — hide/show by breakpoint */
+.show-mobile {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  /* Tighter gutters on phones */
+  .section-max {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  /* Any grid we want to collapse to a single column on phones */
+  .stack-md {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+    align-items: start !important;
+  }
+
+  /* Compact gap variant (for tight rows like document strips) */
+  .stack-md-tight {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+    align-items: start !important;
+  }
+
+  /* Two-up layouts that go single on phones (used for stat strips,
+     numeral + content rows, etc.) */
+  .stack-md-2up {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0 !important;
+  }
+
+  /* For lists/articles using `100px [content]` numeral + content,
+     keep numeral column but shrink it */
+  .stack-md-numeral {
+    grid-template-columns: 56px minmax(0, 1fr) !important;
+    gap: 16px !important;
+  }
+
+  /* Section vertical padding shrinks */
+  .section-pad-mobile {
+    padding-top: 64px !important;
+    padding-bottom: 64px !important;
+  }
+
+  /* Display-spread element: hide on mobile (e.g. hero passport prop) */
+  .hide-mobile {
+    display: none !important;
+  }
+  .show-mobile {
+    display: flex !important;
+  }
+
+  /* Heading scales down */
+  .heading-xl {
+    font-size: clamp(36px, 11vw, 64px) !important;
+    line-height: 0.98 !important;
+  }
+  .heading-lg {
+    font-size: clamp(30px, 8vw, 44px) !important;
+  }
+  .heading-md {
+    font-size: 24px !important;
+  }
+  .numeral {
+    font-size: 38px !important;
+  }
+
+  /* Reset cumbersome vertical alignment on stacked grids */
+  .stack-md-end {
+    align-items: start !important;
+  }
+
+  /* Forms that placed input + button side-by-side now stack */
+  .stack-form {
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+  }
+  .stack-form button {
+    width: 100% !important;
+    height: 56px !important;
+  }
+
+  /* Sticky doc headers — tighter padding */
+  .doc-header-mobile {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* Inline-style gap override */
+  .gap-tight-mobile {
+    gap: 12px !important;
+  }
+
+  /* Long ledger entries (Discover / Ignite / Passport claims) collapse
+     their right-rail metadata under the main column */
+  .ledger-row {
+    grid-template-columns: 56px minmax(0, 1fr) !important;
+    grid-template-areas:
+      "num main"
+      ". meta"
+      ". action" !important;
+    gap: 14px 16px !important;
+    padding: 24px 0 !important;
+  }
+  .ledger-row > .ledger-num { grid-area: num; }
+  .ledger-row > .ledger-main { grid-area: main; }
+  .ledger-row > .ledger-meta {
+    grid-area: meta;
+    align-items: flex-start !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 18px !important;
+    padding-top: 0 !important;
+  }
+  .ledger-row > .ledger-action {
+    grid-area: action;
+    align-items: flex-start !important;
+    padding-top: 12px !important;
+    gap: 10px !important;
+    border-top: 1px dashed rgba(26, 23, 20, 0.18);
+  }
+  .ledger-row > .ledger-action > button,
+  .ledger-row > .ledger-action > a {
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  /* Stat strip: 4 cols → 2x2 */
+  .stat-strip-mobile {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  .stat-strip-mobile > * {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(26, 23, 20, 0.18);
+    padding: 20px 14px !important;
+  }
+  .stat-strip-mobile > *:nth-last-child(-n + 2) {
+    border-bottom: none !important;
+  }
+  .stat-strip-mobile > *:nth-child(odd) {
+    border-right: 1px solid rgba(26, 23, 20, 0.18) !important;
+  }
+
+  /* Three-up primitives panels: stack with horizontal dividers */
+  .primitives-mobile {
+    grid-template-columns: 1fr !important;
+  }
+  .primitives-mobile > * {
+    border-right: none !important;
+    border-bottom: 1px solid #1a1714;
+    padding: 32px 22px !important;
+  }
+  .primitives-mobile > *:last-child {
+    border-bottom: none !important;
+  }
+
+  /* Document-tag strips use flex; keep them tidy */
+  .doc-strip-mobile {
+    gap: 10px !important;
+  }
+  .doc-strip-mobile > * {
+    font-size: 10px !important;
+  }
+
+  /* Passport input (input-doc) shrinks on mobile */
+  .input-doc {
+    font-size: 22px !important;
+  }
+
+  /* Document spread cards (e.g. hero passport mock) */
+  .doc-spread-mobile {
+    width: 100% !important;
+    max-width: 360px !important;
+    transform: none !important;
+    box-shadow: 6px 6px 0 0 #1a1714 !important;
+  }
+
+  /* Generic side-by-side flex that should column-stack */
+  .row-stack-mobile {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .row-stack-mobile > * {
+    width: 100% !important;
+  }
+
+  /* Chart panels need less padding */
+  .chart-panel-mobile {
+    padding: 18px !important;
+  }
+
+  /* Hero (landing page) gets less top padding */
+  .hero-section-mobile {
+    padding-top: 110px !important;
+    padding-bottom: 48px !important;
+  }
+
+  /* Generic mobile padding helpers */
+  .pad-mobile-md {
+    padding-top: 64px !important;
+    padding-bottom: 64px !important;
+  }
+  .pad-mobile-sm {
+    padding: 16px !important;
+  }
+
+  /* Reduce :clamp big nums on mobile */
+  .big-num-mobile {
+    font-size: 44px !important;
+  }
+
+  /* Footer overrides */
+  .footer-pad-mobile {
+    padding: 56px 20px 28px !important;
+  }
+  .footer-grid-mobile {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 32px !important;
+    padding-bottom: 36px !important;
+  }
+  /* Lockup spans both columns */
+  .footer-grid-mobile > *:first-child {
+    grid-column: 1 / -1 !important;
+  }
+  .footer-imprint-mobile {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-grid-mobile {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Evidence rows in claim ledger — stack tighter on mobile */
+@media (max-width: 768px) {
+  .evidence-row-mobile {
+    grid-template-columns: 22px 1fr auto !important;
+    grid-template-areas:
+      "n src arrow"
+      ". exc exc" !important;
+    gap: 8px !important;
+    padding: 12px !important;
+  }
+  .evidence-row-mobile > *:nth-child(1) { grid-area: n; }
+  .evidence-row-mobile > *:nth-child(2) { grid-area: src; }
+  .evidence-row-mobile > *:nth-child(3) { grid-area: exc; padding-top: 4px !important; }
+  .evidence-row-mobile > *:nth-child(4) { grid-area: arrow; }
+
+  /* Onboard main content */
+  .main-pad-onboard {
+    padding: 40px 20px 80px !important;
+  }
+
+  /* Discover passport mark — align left on mobile */
+  .discover-mark-mobile {
+    align-items: flex-start !important;
+  }
+  .discover-mark-mobile span {
+    text-align: left !important;
+  }
+
+  /* Done strip stack on mobile */
+  .done-strip-mobile {
+    padding: 24px 22px !important;
+  }
+
+  /* Passport detail page */
+  .main-pad-passport {
+    padding: 32px 18px 80px !important;
+  }
+  .passport-actions-mobile {
+    gap: 6px !important;
+  }
+  .passport-actions-mobile button {
+    padding: 8px 10px !important;
+    font-size: 9.5px !important;
+    letter-spacing: 0.08em !important;
+  }
+  .passport-stamp-mobile {
+    align-items: flex-start !important;
+  }
+  .passport-stamp-mobile > * {
+    text-align: left !important;
+  }
+  .passport-claim-row {
+    grid-template-columns: 56px minmax(0, 1fr) !important;
+    grid-template-areas:
+      "num main"
+      ". conf" !important;
+    gap: 14px 16px !important;
+    padding: 24px 0 !important;
+  }
+  .passport-claim-row > .claim-num { grid-area: num; }
+  .passport-claim-row > .claim-main { grid-area: main; }
+  .passport-claim-row > .claim-confidence {
+    grid-area: conf;
+    align-items: flex-start !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    padding-top: 6px !important;
+    border-top: 1px dashed rgba(26, 23, 20, 0.18);
+  }
+  .passport-source-mobile {
+    padding: 22px !important;
+  }
+  .signature-mobile {
+    align-items: flex-start !important;
+  }
+
+  /* Ignite bounty pool — align left on mobile */
+  .ignite-bounty-mobile {
+    align-items: flex-start !important;
+  }
+  .ignite-bounty-mobile span {
+    text-align: left !important;
+  }
+
+  /* Skill-map hero — less top padding on mobile */
+  .skillmap-hero-mobile {
+    padding-top: 96px !important;
+    padding-bottom: 48px !important;
+  }
+
+  /* Top countries table row — collapse to two rows on mobile */
+  .country-row-mobile {
+    grid-template-columns: 1fr auto !important;
+    grid-template-rows: auto auto !important;
+    gap: 4px 12px !important;
+    padding: 12px 4px !important;
+  }
+  .country-row-mobile > *:nth-child(1) {
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+  }
+  .country-row-mobile > *:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1;
+    text-align: right !important;
+  }
+  .country-row-mobile > *:nth-child(3) {
+    grid-column: 2;
+    grid-row: 2;
+    text-align: right !important;
+  }
+  .country-row-mobile > *:nth-child(4) {
+    display: none !important;
+  }
+
+  /* Insight banner */
+  .insight-banner-mobile {
+    padding: 22px !important;
+  }
+  .insight-banner-mobile button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-max {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+  .doc-header-mobile {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+  .heading-xl {
+    font-size: clamp(32px, 12vw, 48px) !important;
+  }
+  .heading-lg {
+    font-size: 28px !important;
+  }
+  .input-doc {
+    font-size: 18px !important;
+  }
+  /* Nav links hidden, hamburger only */
+  .stat-strip-mobile {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+/* Mobile menu overlay */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: #f1ebdd;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 24px 36px;
+  animation: fade-up 0.25s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  overflow-y: auto;
+}
+.mobile-menu-link {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 380;
+  font-style: italic;
+  font-variation-settings: "opsz" 144;
+  color: #1a1714;
+  text-decoration: none;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(26, 23, 20, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mobile-menu-link:hover {
+  color: #2d5f3f;
+}

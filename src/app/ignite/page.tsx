@@ -161,6 +161,7 @@ export default function IgnitePage() {
 
           {/* Title block */}
           <div
+            className="stack-md"
             style={{
               display: "grid",
               gridTemplateColumns: "minmax(0, 1.6fr) minmax(0, 1fr)",
@@ -195,9 +196,9 @@ export default function IgnitePage() {
               </p>
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 10 }}>
+            <div className="ignite-bounty-mobile" style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 10 }}>
               <div
-                className="serif-display"
+                className="serif-display big-num-mobile"
                 style={{
                   fontSize: 64,
                   fontWeight: 350,
@@ -327,6 +328,7 @@ export default function IgnitePage() {
               How a commission becomes <span className="serif-italic">evidence</span>.
             </h2>
             <ol
+              className="primitives-mobile"
               style={{
                 listStyle: "none",
                 padding: 0,
@@ -414,6 +416,7 @@ function CommissionEntry({
   const closed = !problem.open;
   return (
     <article
+      className="ledger-row"
       style={{
         display: "grid",
         gridTemplateColumns: "100px minmax(0, 1.6fr) minmax(0, 1fr) 200px",
@@ -425,12 +428,12 @@ function CommissionEntry({
         animationDelay: `${Math.min(index * 30, 200)}ms`,
       }}
     >
-      <div className="numeral serif-italic" style={{ paddingLeft: 4 }}>
+      <div className="numeral serif-italic ledger-num" style={{ paddingLeft: 4 }}>
         {String(index + 1).padStart(2, "0")}
       </div>
 
       {/* main column */}
-      <div>
+      <div className="ledger-main">
         <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
           <span
             className="font-mono"
@@ -528,7 +531,7 @@ function CommissionEntry({
       </div>
 
       {/* metadata column */}
-      <div style={{ display: "flex", flexDirection: "column", gap: 14, paddingTop: 24 }}>
+      <div className="ledger-meta" style={{ display: "flex", flexDirection: "column", gap: 14, paddingTop: 24 }}>
         <Meta label="Reward" value={problem.reward} accent />
         <Meta label="Deadline" value={`${problem.deadline} day${problem.deadline === 1 ? "" : "s"}`} />
         <Meta
@@ -538,7 +541,7 @@ function CommissionEntry({
       </div>
 
       {/* action column */}
-      <div style={{ display: "flex", flexDirection: "column", gap: 10, alignItems: "flex-end", paddingTop: 14 }}>
+      <div className="ledger-action" style={{ display: "flex", flexDirection: "column", gap: 10, alignItems: "flex-end", paddingTop: 14 }}>
         {submitted ? (
           <div className="rubber-stamp" style={{ fontSize: 14, padding: "10px 18px" }}>
             SUBMITTED

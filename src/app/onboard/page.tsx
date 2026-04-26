@@ -132,7 +132,7 @@ export default function ScanPage() {
         }}
       >
         <div
-          className="section-max"
+          className="section-max doc-header-mobile"
           style={{
             padding: "16px 40px",
             display: "flex",
@@ -151,7 +151,7 @@ export default function ScanPage() {
             </span>
           </Link>
 
-          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+          <div className="gap-tight-mobile" style={{ display: "flex", alignItems: "center", gap: 14 }}>
             <span className="font-mono" style={{ fontSize: 10.5, color: "#8C8273", letterSpacing: "0.18em" }}>
               FILE 02 · ISSUE PASSPORT
             </span>
@@ -178,7 +178,7 @@ export default function ScanPage() {
         </div>
       </header>
 
-      <main className="section-max" style={{ padding: "72px 40px 120px", maxWidth: 1080 }}>
+      <main className="section-max main-pad-onboard" style={{ padding: "72px 40px 120px", maxWidth: 1080 }}>
         {/* ── EMPTY ── */}
         {showInput && (
           <ScanInput username={username} setUsername={setUsername} onSubmit={() => startScan(username)} />
@@ -283,7 +283,7 @@ function ScanInput({
         }}
         style={{ display: "flex", flexDirection: "column", gap: 32, marginBottom: 28 }}
       >
-        <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) auto", gap: 24, alignItems: "end" }}>
+        <div className="stack-form" style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) auto", gap: 24, alignItems: "end" }}>
           <div>
             <label
               className="font-mono"
@@ -394,6 +394,7 @@ function SubjectMasthead({
       <div className="hairline-double" style={{ marginBottom: 22 }} />
 
       <div
+        className="stack-md"
         style={{
           display: "grid",
           gridTemplateColumns: "minmax(0, 1.3fr) minmax(0, 1fr)",
@@ -602,6 +603,7 @@ function ClaimsLedger({ claims, scanning }: { claims: Claim[]; scanning: boolean
 function ClaimEntry({ claim, index, isLast }: { claim: Claim; index: number; isLast: boolean }) {
   return (
     <article
+      className="stack-md-numeral"
       style={{
         display: "grid",
         gridTemplateColumns: "100px minmax(0, 1fr)",
@@ -659,6 +661,7 @@ function ClaimEntry({ claim, index, isLast }: { claim: Claim; index: number; isL
                 href={e.uri}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="evidence-row-mobile"
                 style={{
                   display: "grid",
                   gridTemplateColumns: "26px auto 1fr auto",
@@ -718,6 +721,7 @@ function ConfidenceMark({ confidence }: { confidence: string }) {
 function ScanningRow({ first }: { first: boolean }) {
   return (
     <div
+      className="stack-md-numeral"
       style={{
         display: "grid",
         gridTemplateColumns: "100px minmax(0, 1fr)",
@@ -741,6 +745,7 @@ function ScanningRow({ first }: { first: boolean }) {
 function DoneStrip({ username, claimCount }: { username: string; claimCount: number }) {
   return (
     <div
+      className="stack-md done-strip-mobile"
       style={{
         background: "#1A1714",
         color: "#F1EBDD",

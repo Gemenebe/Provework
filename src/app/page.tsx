@@ -11,10 +11,11 @@ export default function LandingPage() {
       {/* ══════════════════════════════════════════════════════════
           HERO  ·  the document opens
           ═══════════════════════════════════════════════════════ */}
-      <section style={{ paddingTop: 160, paddingBottom: 80, position: "relative", zIndex: 1 }}>
+      <section className="hero-section-mobile" style={{ paddingTop: 160, paddingBottom: 80, position: "relative", zIndex: 1 }}>
         <div className="section-max">
           {/* Document header strip */}
           <div
+            className="doc-strip-mobile"
             style={{
               display: "flex",
               alignItems: "center",
@@ -22,6 +23,8 @@ export default function LandingPage() {
               paddingBottom: 18,
               marginBottom: 56,
               borderBottom: "1px solid #1A1714",
+              flexWrap: "wrap",
+              gap: 12,
             }}
           >
             <span className="font-mono eyebrow-faint" style={{ fontSize: 11 }}>
@@ -37,6 +40,7 @@ export default function LandingPage() {
 
           {/* Hero grid */}
           <div
+            className="stack-md"
             style={{
               display: "grid",
               gridTemplateColumns: "minmax(0, 1fr) auto",
@@ -126,7 +130,7 @@ export default function LandingPage() {
             </div>
 
             {/* Right column — passport spread */}
-            <div style={{ width: 360, position: "relative" }}>
+            <div className="doc-spread-mobile" style={{ width: 360, position: "relative" }}>
               <DocumentSpread />
             </div>
           </div>
@@ -138,6 +142,7 @@ export default function LandingPage() {
           ═══════════════════════════════════════════════════════ */}
       <section
         id="protocol"
+        className="pad-mobile-md"
         style={{
           padding: "120px 0",
           background: "#E8DFC9",
@@ -149,6 +154,7 @@ export default function LandingPage() {
       >
         <div className="section-max">
           <div
+            className="stack-md-numeral"
             style={{
               display: "grid",
               gridTemplateColumns: "120px minmax(0, 1fr)",
@@ -199,11 +205,12 @@ export default function LandingPage() {
       {/* ══════════════════════════════════════════════════════════
           THE THREE PRIMITIVES
           ═══════════════════════════════════════════════════════ */}
-      <section style={{ padding: "120px 0", position: "relative", zIndex: 1 }}>
+      <section className="pad-mobile-md" style={{ padding: "120px 0", position: "relative", zIndex: 1 }}>
         <div className="section-max">
           <SectionHead numeral="¶ II" eyebrow="Primitives" title="Three layers, none of them a job board." />
 
           <div
+            className="primitives-mobile"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
@@ -283,6 +290,7 @@ export default function LandingPage() {
           ANATOMY OF A CLAIM (the moneymaker section)
           ═══════════════════════════════════════════════════════ */}
       <section
+        className="pad-mobile-md"
         style={{
           padding: "120px 0",
           background: "#FBF6E8",
@@ -296,6 +304,7 @@ export default function LandingPage() {
           <SectionHead numeral="¶ III" eyebrow="Anatomy" title="A claim. A receipt. Nothing else." />
 
           <div
+            className="stack-md"
             style={{
               display: "grid",
               gridTemplateColumns: "minmax(0, 1.4fr) minmax(0, 1fr)",
@@ -368,7 +377,7 @@ export default function LandingPage() {
       {/* ══════════════════════════════════════════════════════════
           PROCESS  ·  three numbered moves
           ═══════════════════════════════════════════════════════ */}
-      <section style={{ padding: "120px 0", position: "relative", zIndex: 1 }}>
+      <section className="pad-mobile-md" style={{ padding: "120px 0", position: "relative", zIndex: 1 }}>
         <div className="section-max">
           <SectionHead numeral="¶ IV" eyebrow="Method" title="The whole transaction in 90 seconds." />
 
@@ -388,6 +397,7 @@ export default function LandingPage() {
             ].map(([n, head, body], i, arr) => (
               <li
                 key={String(n)}
+                className="stack-md-numeral"
                 style={{
                   display: "grid",
                   gridTemplateColumns: "120px minmax(0, 1fr)",
@@ -417,6 +427,7 @@ export default function LandingPage() {
           QUOTE / IMPACT  ·  one big stamp
           ═══════════════════════════════════════════════════════ */}
       <section
+        className="pad-mobile-md"
         style={{
           padding: "140px 0",
           background: "#1A1714",
@@ -426,7 +437,7 @@ export default function LandingPage() {
         }}
       >
         <div className="section-max">
-          <div style={{ display: "grid", gridTemplateColumns: "1fr auto", alignItems: "center", gap: 64 }}>
+          <div className="stack-md" style={{ display: "grid", gridTemplateColumns: "1fr auto", alignItems: "center", gap: 64 }}>
             <div>
               <div
                 className="font-mono"
@@ -524,7 +535,7 @@ function SectionHead({
   title: string;
 }) {
   return (
-    <div style={{ marginBottom: 56, display: "grid", gridTemplateColumns: "120px minmax(0, 1fr)", gap: 32, alignItems: "end" }}>
+    <div className="stack-md-numeral" style={{ marginBottom: 56, display: "grid", gridTemplateColumns: "120px minmax(0, 1fr)", gap: 32, alignItems: "end" }}>
       <span className="numeral">{numeral}</span>
       <div>
         <div className="font-mono" style={{ fontSize: 11, letterSpacing: "0.22em", color: "#2D5F3F", textTransform: "uppercase", marginBottom: 14 }}>

@@ -42,9 +42,10 @@ export default function Footer() {
         zIndex: 10,
       }}
     >
-      <div className="section-max" style={{ padding: "80px 40px 36px" }}>
+      <div className="section-max footer-pad-mobile" style={{ padding: "80px 40px 36px" }}>
         {/* top: lockup + manifesto blurb */}
         <div
+          className="footer-grid-mobile"
           style={{
             display: "grid",
             gridTemplateColumns: "minmax(0, 1.4fr) repeat(3, minmax(0, 1fr))",
@@ -133,6 +134,7 @@ export default function Footer() {
 
         {/* bottom: imprint line */}
         <div
+          className="footer-imprint-mobile"
           style={{
             paddingTop: 24,
             display: "flex",
