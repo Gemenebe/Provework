@@ -1,296 +1,618 @@
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import PassportCard from "@/components/PassportCard";
-import AnimatedCounter from "@/components/AnimatedCounter";
-import SkillChip from "@/components/SkillChip";
-
-/* ─── shared style helpers ─────────────────────────── */
-const MAX: React.CSSProperties = { maxWidth: 1280, margin: "0 auto", padding: "0 48px" };
-const SECTION: React.CSSProperties = { padding: "100px 0", position: "relative" };
-
-/* ─── data ──────────────────────────────────────────── */
-const FEATURES = [
-  { icon: "🪪", title: "Verified Skill Passports", body: "Not a CV. A living proof-of-work record pulled from what you've actually built — repos, commits, deployments, designs." },
-  { icon: "🌍", title: "Portable Credentials", body: "One passport, every opportunity. Works across borders, industries, and platforms — from Lagos to London to Lima." },
-  { icon: "🔍", title: "Employer-Ready Discovery", body: "Search talent by what they can prove, not what they claim. Filter by verified depth, not degree or job title." },
-];
-
-const STEPS = [
-  { n: "01", title: "Connect Your Portfolio", body: "Link GitHub, Behance, or LinkedIn. We read your real output — commits, projects, work history." },
-  { n: "02", title: "AI Verifies Your Skills", body: "Our model extracts skill signals from your portfolio and builds a verified, tamper-proof Skill Passport." },
-  { n: "03", title: "Get Discovered", body: "Employers find you by proof, not pedigree. Your work speaks — globally, without gatekeeping." },
-];
-
-const SKILLS_SHOWCASE = [
-  { label: "React", verified: true }, { label: "TypeScript", verified: true },
-  { label: "Python", verified: false }, { label: "Figma", verified: true },
-  { label: "Node.js", verified: true }, { label: "System Design", verified: true },
-  { label: "PostgreSQL", verified: false }, { label: "AWS", verified: true },
-  { label: "UI/UX Design", verified: true }, { label: "Docker", verified: false },
-  { label: "GraphQL", verified: true }, { label: "Machine Learning", verified: false },
-];
+import PassportMark from "@/components/PassportMark";
 
 export default function LandingPage() {
   return (
     <>
       <Navbar />
 
-      {/* ══════════════════════ HERO ══════════════════════ */}
-      <section style={{ minHeight: "100vh", display: "flex", alignItems: "center", paddingTop: 100, paddingBottom: 60, position: "relative", overflow: "hidden" }}>
+      {/* ══════════════════════════════════════════════════════════
+          HERO  ·  the document opens
+          ═══════════════════════════════════════════════════════ */}
+      <section style={{ paddingTop: 160, paddingBottom: 80, position: "relative", zIndex: 1 }}>
+        <div className="section-max">
+          {/* Document header strip */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              paddingBottom: 18,
+              marginBottom: 56,
+              borderBottom: "1px solid #1A1714",
+            }}
+          >
+            <span className="font-mono eyebrow-faint" style={{ fontSize: 11 }}>
+              Vol. I · No. 001
+            </span>
+            <span className="font-mono eyebrow-faint" style={{ fontSize: 11 }}>
+              World Bank · Open Talent Challenge
+            </span>
+            <span className="font-mono eyebrow-faint" style={{ fontSize: 11 }}>
+              Filed Apr 26, 2026
+            </span>
+          </div>
 
-        {/* Radial glow behind right column */}
-        <div style={{ position: "absolute", top: "10%", right: "-5%", width: 600, height: 600, borderRadius: "50%", background: "radial-gradient(circle, rgba(42,111,191,0.08) 0%, transparent 65%)", pointerEvents: "none" }} />
-        {/* Radial glow bottom left */}
-        <div style={{ position: "absolute", bottom: "5%", left: "-10%", width: 500, height: 500, borderRadius: "50%", background: "radial-gradient(circle, rgba(15,45,82,0.05) 0%, transparent 65%)", pointerEvents: "none" }} />
-
-        <div style={{ ...MAX, width: "100%", display: "flex", alignItems: "center", gap: 80 }}>
-
-          {/* Left */}
-          <div style={{ flex: "1 1 0", maxWidth: 600 }}>
-
-            {/* Live badge */}
-            <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(255,255,255,0.80)", backdropFilter: "blur(12px)", border: "1px solid rgba(15,45,82,0.10)", borderRadius: 999, padding: "6px 14px 6px 8px", marginBottom: 32 }}>
-              <span style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 24, height: 24, borderRadius: "50%", background: "rgba(34,197,94,0.12)" }}>
-                <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#22c55e", animation: "pulse-dot 2s ease-in-out infinite", display: "block" }} />
-              </span>
-              <span style={{ fontSize: 13, fontWeight: 600, color: "#0F2D52" }}>
-                47,832 skills verified today
-              </span>
-            </div>
-
-            {/* Headline */}
-            <h1 style={{ fontFamily: "var(--font-sora-var), sans-serif", fontSize: "clamp(40px, 5vw, 62px)", fontWeight: 700, lineHeight: 1.08, letterSpacing: "-2px", color: "#0D1B2A", marginBottom: 24 }}>
-              The World&apos;s Talent<br />
-              Is Not Invisible.<br />
-              <span style={{ color: "#0F2D52" }}>Your Infrastructure Is.</span>
-            </h1>
-
-            {/* Sub */}
-            <p style={{ fontSize: 18, lineHeight: 1.65, color: "#6B7280", maxWidth: 460, marginBottom: 36 }}>
-              <strong style={{ color: "#0D1B2A", fontWeight: 600 }}>Prove Work</strong> reads what people{" "}
-              <em style={{ fontStyle: "italic" }}>do</em>, not what they <em style={{ fontStyle: "italic" }}>claim</em>.
-              A behavioral credential layer for the global workforce.
-            </p>
-
-            {/* CTAs */}
-            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <Link href="/onboard" style={{
-                display: "inline-flex", alignItems: "center", gap: 8, textDecoration: "none",
-                background: "#0F2D52", color: "#FAF8F4", fontWeight: 600, fontSize: 15,
-                padding: "14px 28px", borderRadius: 12,
-                boxShadow: "0 4px 20px rgba(15,45,82,0.30), 0 1px 0 rgba(255,255,255,0.1) inset",
-                transition: "all 0.2s",
-              }}>
-                Get Your Skill Passport
-              </Link>
-              <Link href="/employers/discover" style={{
-                display: "inline-flex", alignItems: "center", gap: 8, textDecoration: "none",
-                background: "transparent", color: "#0F2D52", fontWeight: 600, fontSize: 15,
-                padding: "14px 28px", borderRadius: 12, border: "1.5px solid #0F2D52",
-                transition: "all 0.2s",
-              }}>
-                Discover Talent
-              </Link>
-            </div>
-
-            {/* Social proof */}
-            <div style={{ display: "flex", alignItems: "center", gap: 16, marginTop: 40 }}>
-              <div style={{ display: "flex" }}>
-                {["A","K","Z","E","N"].map((l, i) => (
-                  <div key={i} style={{ width: 32, height: 32, borderRadius: "50%", background: `hsl(${210 + i * 12}, 60%, ${35 + i * 5}%)`, border: "2px solid #FAF8F4", marginLeft: i > 0 ? -8 : 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#FAF8F4" }}>
-                    {l}
-                  </div>
-                ))}
+          {/* Hero grid */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "minmax(0, 1fr) auto",
+              gap: 64,
+              alignItems: "end",
+            }}
+          >
+            <div>
+              <div
+                className="font-mono"
+                style={{
+                  fontSize: 11,
+                  letterSpacing: "0.22em",
+                  color: "#2D5F3F",
+                  textTransform: "uppercase",
+                  marginBottom: 32,
+                }}
+              >
+                ¶ Manifesto · 0.1
               </div>
-              <p style={{ fontSize: 13, color: "#6B7280" }}>
-                Joined by <strong style={{ color: "#0D1B2A" }}>2.4M+ professionals</strong> across 127 countries
+
+              <h1 className="serif-display heading-xl" style={{ marginBottom: 36 }}>
+                The world&rsquo;s talent
+                <br />
+                is not invisible.
+                <br />
+                <span className="serif-italic" style={{ color: "#2D5F3F" }}>
+                  Its evidence
+                </span>{" "}
+                is.
+              </h1>
+
+              <p
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: 22,
+                  lineHeight: 1.45,
+                  color: "#4A423A",
+                  maxWidth: 620,
+                  fontWeight: 400,
+                  fontVariationSettings: '"opsz" 30',
+                  marginBottom: 44,
+                }}
+              >
+                A self-taught coder ships a React app from a flat in Accra. A community
+                organiser maps three thousand streets in Lagos. A translator localises
+                a textbook into Yoruba. The work happens. The receipts exist. The
+                economy still cannot see them.
+                <br />
+                <br />
+                <em>ProveWork is the open infrastructure layer that fixes that.</em>
+              </p>
+
+              <div style={{ display: "flex", gap: 20, alignItems: "center", flexWrap: "wrap" }}>
+                <Link href="/onboard" className="btn-ink">
+                  <span className="font-mono" style={{ fontSize: 12, letterSpacing: "0.1em", textTransform: "uppercase" }}>
+                    Issue a passport
+                  </span>
+                  <span aria-hidden>→</span>
+                </Link>
+                <Link
+                  href="/employers/discover"
+                  className="btn-link-ink"
+                  style={{ fontSize: 14 }}
+                >
+                  Read the protocol
+                </Link>
+              </div>
+
+              <div
+                style={{
+                  marginTop: 56,
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 11.5,
+                  color: "#8C8273",
+                  letterSpacing: "0.04em",
+                  display: "flex",
+                  gap: 22,
+                  flexWrap: "wrap",
+                }}
+              >
+                <span>§ verifiable credential</span>
+                <span>§ evidence-cited</span>
+                <span>§ open API</span>
+                <span>§ no platform lock-in</span>
+              </div>
+            </div>
+
+            {/* Right column — passport spread */}
+            <div style={{ width: 360, position: "relative" }}>
+              <DocumentSpread />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════
+          THESIS  ·  one big serif sentence the room can read
+          ═══════════════════════════════════════════════════════ */}
+      <section
+        id="protocol"
+        style={{
+          padding: "120px 0",
+          background: "#E8DFC9",
+          borderTop: "1px solid #1A1714",
+          borderBottom: "1px solid #1A1714",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        <div className="section-max">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "120px minmax(0, 1fr)",
+              gap: 32,
+              maxWidth: 1080,
+            }}
+          >
+            <div className="numeral">¶ I</div>
+            <div>
+              <p
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(28px, 3.4vw, 44px)",
+                  lineHeight: 1.22,
+                  fontWeight: 360,
+                  letterSpacing: "-0.018em",
+                  color: "#1A1714",
+                  fontVariationSettings: '"opsz" 144',
+                }}
+              >
+                The binding constraint on global talent mobility is not skill —
+                it is <span className="serif-italic">verification</span>. Self-taught
+                workers generate signal constantly. Commits, posts, contributions,
+                projects shipped. The signal is unaggregated and untranslated, so
+                employers fall back on credentials, and credentials are precisely
+                what the people we are trying to reach do not have.
+              </p>
+              <p
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontStyle: "italic",
+                  fontSize: "clamp(22px, 2.5vw, 32px)",
+                  lineHeight: 1.32,
+                  fontWeight: 400,
+                  color: "#2D5F3F",
+                  marginTop: 28,
+                  fontVariationSettings: '"opsz" 144',
+                }}
+              >
+                We make verification cheap by having Claude attest with receipts —
+                every claim cites the artifact that proves it.
               </p>
             </div>
           </div>
-
-          {/* Right — Floating passport card */}
-          <div style={{ flexShrink: 0, position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            {/* Decorative glow */}
-            <div style={{ position: "absolute", width: 360, height: 360, borderRadius: "50%", background: "radial-gradient(circle, rgba(42,111,191,0.10) 0%, transparent 70%)", pointerEvents: "none" }} />
-            <PassportCard floating />
-          </div>
         </div>
       </section>
 
-      {/* ══════════════════════ LOGOS / TRUST BAR ══════════════════════ */}
-      <div style={{ borderTop: "1px solid rgba(15,45,82,0.07)", borderBottom: "1px solid rgba(15,45,82,0.07)", padding: "22px 0", background: "rgba(255,255,255,0.5)" }}>
-        <div style={{ ...MAX, display: "flex", alignItems: "center", justifyContent: "center", gap: 48 }}>
-          <span style={{ fontSize: 12, fontWeight: 600, color: "#6B7280", letterSpacing: "1.5px", textTransform: "uppercase" }}>Trusted by teams at</span>
-          {["GitHub","Andela","Flutterwave","Paystack","TechCabal","Interswitch"].map((co) => (
-            <span key={co} style={{ fontSize: 14, fontWeight: 700, color: "rgba(15,45,82,0.35)", letterSpacing: "-0.3px" }}>{co}</span>
-          ))}
-        </div>
-      </div>
+      {/* ══════════════════════════════════════════════════════════
+          THE THREE PRIMITIVES
+          ═══════════════════════════════════════════════════════ */}
+      <section style={{ padding: "120px 0", position: "relative", zIndex: 1 }}>
+        <div className="section-max">
+          <SectionHead numeral="¶ II" eyebrow="Primitives" title="Three layers, none of them a job board." />
 
-      {/* ══════════════════════ FEATURES ══════════════════════ */}
-      <section style={SECTION}>
-        <div style={MAX}>
-          <div style={{ textAlign: "center", marginBottom: 64 }}>
-            <div style={{ display: "inline-block", fontSize: 11, fontWeight: 700, color: "#2A6FBF", letterSpacing: "2px", textTransform: "uppercase", marginBottom: 14 }}>
-              What We Do
-            </div>
-            <h2 style={{ fontFamily: "var(--font-sora-var), sans-serif", fontSize: "clamp(26px, 3vw, 38px)", fontWeight: 700, color: "#0D1B2A", letterSpacing: "-0.8px", marginBottom: 14 }}>
-              Infrastructure for human potential
-            </h2>
-            <p style={{ fontSize: 16, color: "#6B7280", maxWidth: 480, margin: "0 auto" }}>
-              Three layers that turn raw talent into verifiable, portable, employer-ready proof.
-            </p>
-          </div>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
-            {FEATURES.map((f, i) => (
-              <div key={f.title} style={{
-                background: "rgba(255,255,255,0.70)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
-                border: "1px solid rgba(15,45,82,0.08)", borderRadius: 20, padding: 32,
-                boxShadow: "0 2px 16px rgba(15,45,82,0.06), 0 0 0 1px rgba(255,255,255,0.8) inset",
-                transition: "transform 0.2s ease, box-shadow 0.2s ease",
-              }}>
-                <div style={{ width: 52, height: 52, borderRadius: 14, background: i === 0 ? "rgba(15,45,82,0.06)" : i === 1 ? "rgba(42,111,191,0.08)" : "rgba(34,197,94,0.08)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, marginBottom: 22 }}>
-                  {f.icon}
-                </div>
-                <h3 style={{ fontFamily: "var(--font-sora-var), sans-serif", fontWeight: 600, fontSize: 18, color: "#0D1B2A", marginBottom: 10 }}>{f.title}</h3>
-                <p style={{ fontSize: 14, color: "#6B7280", lineHeight: 1.65 }}>{f.body}</p>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+              gap: 0,
+              borderTop: "1px solid #1A1714",
+              borderBottom: "1px solid #1A1714",
+            }}
+          >
+            {[
+              {
+                tag: "I.",
+                title: "Connectors",
+                body: "Read what people have already built. GitHub today. Stack Overflow, OpenStreetMap, WhatsApp Business, YouTube tomorrow. Adding the next is mechanical work.",
+                detail: "src/lib/github.ts → ~150 LOC per source",
+              },
+              {
+                tag: "II.",
+                title: "Synthesis",
+                body: "Claude reads the evidence and emits skill claims. Forbidden from inventing — every claim must cite a specific artifact in the input. The model attests, never judges.",
+                detail: "claude-opus-4-7 · adaptive thinking · structured tool use",
+              },
+              {
+                tag: "III.",
+                title: "Passport",
+                body: "Output is a verifiable credential — JSON-LD, signed, portable. Anyone can build employer-side discovery on top. Open API, open primitives.",
+                detail: "GET /api/passport/[handle] · download · share",
+              },
+            ].map((p, i) => (
+              <div
+                key={p.tag}
+                style={{
+                  padding: "44px 36px",
+                  borderRight: i < 2 ? "1px solid #1A1714" : "none",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 18,
+                  position: "relative",
+                  background: "transparent",
+                }}
+              >
+                <span
+                  className="font-display"
+                  style={{
+                    fontSize: 56,
+                    fontStyle: "italic",
+                    fontWeight: 320,
+                    color: "#2D5F3F",
+                    lineHeight: 0.9,
+                    fontVariationSettings: '"opsz" 144',
+                  }}
+                >
+                  {p.tag}
+                </span>
+                <h3 className="serif-display" style={{ fontSize: 28, fontWeight: 420 }}>
+                  {p.title}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: 15.5,
+                    lineHeight: 1.55,
+                    color: "#4A423A",
+                  }}
+                >
+                  {p.body}
+                </p>
+                <span className="font-mono" style={{ fontSize: 10.5, color: "#8C8273", letterSpacing: "0.06em", marginTop: "auto", paddingTop: 12 }}>
+                  {p.detail}
+                </span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════ HOW IT WORKS ══════════════════════ */}
-      <section id="how-it-works" style={{ background: "#0F2D52", padding: "100px 0", position: "relative", overflow: "hidden" }}>
-        {/* Dot grid overlay in navy */}
-        <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)", backgroundSize: "32px 32px", pointerEvents: "none" }} />
-        {/* Radial glow */}
-        <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 800, height: 800, borderRadius: "50%", background: "radial-gradient(circle, rgba(42,111,191,0.15) 0%, transparent 60%)", pointerEvents: "none" }} />
+      {/* ══════════════════════════════════════════════════════════
+          ANATOMY OF A CLAIM (the moneymaker section)
+          ═══════════════════════════════════════════════════════ */}
+      <section
+        style={{
+          padding: "120px 0",
+          background: "#FBF6E8",
+          borderTop: "1px solid #1A1714",
+          borderBottom: "1px solid #1A1714",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        <div className="section-max">
+          <SectionHead numeral="¶ III" eyebrow="Anatomy" title="A claim. A receipt. Nothing else." />
 
-        <div style={{ ...MAX, position: "relative", zIndex: 1 }}>
-          <div style={{ textAlign: "center", marginBottom: 64 }}>
-            <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.45)", letterSpacing: "2px", textTransform: "uppercase", marginBottom: 14 }}>
-              The Process
-            </div>
-            <h2 style={{ fontFamily: "var(--font-sora-var), sans-serif", fontSize: "clamp(26px, 3vw, 38px)", fontWeight: 700, color: "#FAF8F4", letterSpacing: "-0.8px", marginBottom: 14 }}>
-              From portfolio to passport in minutes
-            </h2>
-            <p style={{ fontSize: 16, color: "rgba(255,255,255,0.50)", maxWidth: 400, margin: "0 auto" }}>Connect once. Prove everything.</p>
-          </div>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 40, position: "relative" }}>
-            {/* connector line */}
-            <div style={{ position: "absolute", top: 32, left: "calc(16.66% + 24px)", right: "calc(16.66% + 24px)", height: 1, background: "rgba(255,255,255,0.12)" }} />
-
-            {STEPS.map((s) => (
-              <div key={s.n} style={{ textAlign: "center" }}>
-                <div style={{ width: 64, height: 64, borderRadius: "50%", background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.18)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 24px", fontFamily: "var(--font-sora-var), sans-serif", fontWeight: 700, fontSize: 20, color: "#FAF8F4" }}>
-                  {s.n}
-                </div>
-                <h3 style={{ fontFamily: "var(--font-sora-var), sans-serif", fontWeight: 600, fontSize: 18, color: "#FAF8F4", marginBottom: 10 }}>{s.title}</h3>
-                <p style={{ fontSize: 14, color: "rgba(255,255,255,0.54)", lineHeight: 1.65 }}>{s.body}</p>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "minmax(0, 1.4fr) minmax(0, 1fr)",
+              gap: 56,
+              alignItems: "start",
+            }}
+          >
+            {/* Claim card — looks like an entry in a passport */}
+            <div className="paper-card" style={{ padding: "32px 36px", background: "#F1EBDD", borderColor: "#1A1714" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 18, flexWrap: "wrap" }}>
+                <span className="font-mono" style={{ fontSize: 11, color: "#8C8273", letterSpacing: "0.1em" }}>
+                  ENTRY 02
+                </span>
+                <span style={{ height: 1, flex: 1, background: "#D9CFB8" }} />
+                <span className="font-mono" style={{ fontSize: 11, color: "#2D5F3F", letterSpacing: "0.1em" }}>
+                  HIGH CONFIDENCE
+                </span>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* ══════════════════════ STATS ══════════════════════ */}
-      <section style={{ background: "linear-gradient(135deg, #0a2240 0%, #1a4a80 100%)", padding: "64px 0" }}>
-        <div style={{ ...MAX, display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 0 }}>
-          {[
-            { end: 127, suffix: "", label: "Countries Represented" },
-            { end: 0, display: "2.4M", label: "Skills Mapped" },
-            { end: 89, suffix: "%", label: "Employer Match Rate" },
-            { end: 48, suffix: "h", prefix: "<", label: "Max Verification Time" },
-          ].map((s, i) => (
-            <div key={s.label} style={{ textAlign: "center", padding: "0 24px", borderRight: i < 3 ? "1px solid rgba(255,255,255,0.10)" : "none" }}>
-              <div style={{ fontFamily: "var(--font-sora-var), sans-serif", fontWeight: 700, fontSize: 44, color: "#FAF8F4", letterSpacing: "-1.5px", lineHeight: 1, marginBottom: 8 }}>
-                {s.display ? s.display : (
-                  <AnimatedCounter end={s.end} prefix={s.prefix} suffix={s.suffix} />
-                )}
+              <div className="font-mono" style={{ fontSize: 11, color: "#1A1714", letterSpacing: "0.18em", marginBottom: 14 }}>
+                REACT · SHIPPING
               </div>
-              <div style={{ fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.50)" }}>{s.label}</div>
+
+              <p className="prose-claim" style={{ marginBottom: 22 }}>
+                Designed and shipped Boost Track, a React application that gives
+                backend engineers a pre-wired frontend so they can stand up a UI
+                for their API in minutes.
+                <sup className="cite">[1][2]</sup>
+              </p>
+
+              <div style={{ borderTop: "1px solid #D9CFB8", paddingTop: 16, display: "flex", flexDirection: "column", gap: 10 }}>
+                <CitationLine
+                  n={1}
+                  source="github-repo"
+                  excerpt="Boost Track is a React application designed to accelerate frontend development for backend APIs."
+                />
+                <CitationLine
+                  n={2}
+                  source="github-readme"
+                  excerpt="Sign-in, sign-up, password reset, and profile management screens are readily available."
+                />
+              </div>
             </div>
-          ))}
+
+            {/* Annotation column — explains what makes this different */}
+            <div style={{ paddingTop: 12 }}>
+              <div className="hairline-double" style={{ width: 80, marginBottom: 22 }} />
+              <h3 className="serif-display" style={{ fontSize: 30, fontWeight: 400, lineHeight: 1.15, marginBottom: 22 }}>
+                Every claim is a <span className="serif-italic">pointer</span>, not a summary.
+              </h3>
+              <ul style={{ listStyle: "none", padding: 0, display: "flex", flexDirection: "column", gap: 16 }}>
+                {[
+                  ["¶", "Click the citation. The original artifact opens in one tab. The claim is verifiable in seconds, not minutes."],
+                  ["¶", "Confidence is a property of the evidence, not the person. Multi-source = high. Single-source = medium. Topic tag = low."],
+                  ["¶", "No citation, no claim. Claude is system-prompted to refuse fabrication. The model attests; it does not judge."],
+                ].map(([sym, text], i) => (
+                  <li key={i} style={{ display: "grid", gridTemplateColumns: "20px 1fr", gap: 14, alignItems: "start" }}>
+                    <span style={{ fontFamily: "var(--font-display)", fontStyle: "italic", color: "#2D5F3F", fontSize: 18 }}>
+                      {sym}
+                    </span>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: 15, lineHeight: 1.55, color: "#4A423A" }}>{text}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ══════════════════════ SKILLS SHOWCASE ══════════════════════ */}
-      <section style={SECTION}>
-        <div style={{ ...MAX, textAlign: "center" }}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: "#2A6FBF", letterSpacing: "2px", textTransform: "uppercase", marginBottom: 14 }}>
-            Verified Skills
-          </div>
-          <h2 style={{ fontFamily: "var(--font-sora-var), sans-serif", fontSize: "clamp(26px, 3vw, 38px)", fontWeight: 700, color: "#0D1B2A", letterSpacing: "-0.8px", marginBottom: 14 }}>
-            Every skill, backed by proof
-          </h2>
-          <p style={{ fontSize: 16, color: "#6B7280", maxWidth: 480, margin: "0 auto 48px" }}>
-            Green means verified against real work. Every chip links to evidence an employer can inspect.
-          </p>
-          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 10, maxWidth: 640, margin: "0 auto" }}>
-            {SKILLS_SHOWCASE.map((s) => (
-              <SkillChip key={s.label} label={s.label} verified={s.verified} />
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ══════════════════════════════════════════════════════════
+          PROCESS  ·  three numbered moves
+          ═══════════════════════════════════════════════════════ */}
+      <section style={{ padding: "120px 0", position: "relative", zIndex: 1 }}>
+        <div className="section-max">
+          <SectionHead numeral="¶ IV" eyebrow="Method" title="The whole transaction in 90 seconds." />
 
-      {/* ══════════════════════ TESTIMONIAL ══════════════════════ */}
-      <section style={{ ...SECTION, background: "rgba(255,255,255,0.45)" }}>
-        <div style={{ ...MAX, display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 24 }}>
-          {[
-            { quote: "I got hired at a Berlin startup without a degree. My passport did the talking.", name: "Kofi Mensah", role: "Backend Engineer · Ghana", score: 91 },
-            { quote: "ProveWork is the first tool that actually shows employers what our candidates are capable of.", name: "Aisha Kamara", role: "Head of Talent · Lagos", score: null },
-            { quote: "I had 10 years of experience but no way to prove it. Now I have a passport that speaks louder than any CV.", name: "Priya Nair", role: "Product Designer · India", score: 84 },
-          ].map((t) => (
-            <div key={t.name} style={{ background: "rgba(255,255,255,0.75)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)", border: "1px solid rgba(15,45,82,0.08)", borderRadius: 20, padding: 28, boxShadow: "0 2px 16px rgba(15,45,82,0.06)" }}>
-              <div style={{ fontSize: 32, color: "#0F2D52", opacity: 0.3, marginBottom: 12, lineHeight: 1, fontFamily: "Georgia, serif" }}>&ldquo;</div>
-              <p style={{ fontSize: 15, color: "#0D1B2A", lineHeight: 1.65, marginBottom: 20, fontStyle: "italic" }}>{t.quote}</p>
-              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <div style={{ width: 36, height: 36, borderRadius: "50%", background: "linear-gradient(135deg, #0F2D52, #2A6FBF)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 13, fontWeight: 700, color: "#FAF8F4", flexShrink: 0 }}>
-                  {t.name[0]}
-                </div>
+          <ol
+            style={{
+              listStyle: "none",
+              padding: 0,
+              margin: 0,
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            {[
+              ["I", "Type a handle.", "Any GitHub identifier. No login. No profile to fill in. We treat the public footprint as the record."],
+              ["II", "Watch the receipts.", "Connectors fetch; Claude reads; claims stream in one by one. Each one cites the artifact that proves it. Average run: under thirty seconds."],
+              ["III", "Hand it to anyone.", "The passport is signed, downloadable, embeddable. An employer in Berlin and a recruiter in Bangalore see the same evidence layer."],
+            ].map(([n, head, body], i, arr) => (
+              <li
+                key={String(n)}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "120px minmax(0, 1fr)",
+                  gap: 40,
+                  padding: "44px 0",
+                  borderBottom: i < arr.length - 1 ? "1px solid #1A1714" : "none",
+                  borderTop: i === 0 ? "1px solid #1A1714" : "none",
+                  alignItems: "start",
+                }}
+              >
+                <span className="numeral serif-italic">{n}.</span>
                 <div>
-                  <div style={{ fontSize: 13, fontWeight: 600, color: "#0D1B2A" }}>{t.name}</div>
-                  <div style={{ fontSize: 12, color: "#6B7280" }}>{t.role}</div>
+                  <h3 className="serif-display" style={{ fontSize: "clamp(28px, 2.6vw, 38px)", fontWeight: 420, lineHeight: 1.1, marginBottom: 12 }}>
+                    {head}
+                  </h3>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: 17, lineHeight: 1.55, color: "#4A423A", maxWidth: 720 }}>
+                    {body}
+                  </p>
                 </div>
-                {t.score && <div style={{ marginLeft: "auto", fontFamily: "var(--font-sora-var), sans-serif", fontWeight: 700, fontSize: 18, color: "#0F2D52" }}>{t.score}</div>}
-              </div>
-            </div>
-          ))}
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
-      {/* ══════════════════════ FINAL CTA ══════════════════════ */}
-      <section style={{ padding: "140px 0", textAlign: "center", position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 700, height: 700, borderRadius: "50%", background: "radial-gradient(circle, rgba(42,111,191,0.07) 0%, transparent 60%)", pointerEvents: "none" }} />
-        <div style={{ ...MAX, position: "relative", zIndex: 1 }}>
-          <div style={{ display: "inline-block", fontSize: 11, fontWeight: 700, color: "#2A6FBF", letterSpacing: "2px", textTransform: "uppercase", marginBottom: 20 }}>
-            Get Started Free
+      {/* ══════════════════════════════════════════════════════════
+          QUOTE / IMPACT  ·  one big stamp
+          ═══════════════════════════════════════════════════════ */}
+      <section
+        style={{
+          padding: "140px 0",
+          background: "#1A1714",
+          color: "#F1EBDD",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        <div className="section-max">
+          <div style={{ display: "grid", gridTemplateColumns: "1fr auto", alignItems: "center", gap: 64 }}>
+            <div>
+              <div
+                className="font-mono"
+                style={{
+                  fontSize: 11,
+                  letterSpacing: "0.22em",
+                  color: "#A8987F",
+                  textTransform: "uppercase",
+                  marginBottom: 24,
+                }}
+              >
+                ¶ V — Closing
+              </div>
+              <p
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(34px, 4.2vw, 60px)",
+                  fontWeight: 320,
+                  lineHeight: 1.08,
+                  letterSpacing: "-0.022em",
+                  fontVariationSettings: '"opsz" 144',
+                }}
+              >
+                The same evidence layer that surfaces a senior React engineer in
+                Berlin{" "}
+                <span className="serif-italic" style={{ color: "#9CCEAB" }}>
+                  surfaces a self-taught coder in Accra.
+                </span>{" "}
+                The economy stops being able to claim it cannot see them.
+              </p>
+
+              <div style={{ marginTop: 48, display: "flex", gap: 18, alignItems: "center", flexWrap: "wrap" }}>
+                <Link
+                  href="/onboard"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 10,
+                    background: "#F1EBDD",
+                    color: "#1A1714",
+                    border: "1px solid #F1EBDD",
+                    padding: "16px 26px",
+                    fontFamily: "var(--font-mono)",
+                    fontSize: 12,
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    fontWeight: 500,
+                    textDecoration: "none",
+                  }}
+                >
+                  Issue your passport <span aria-hidden>→</span>
+                </Link>
+                <Link
+                  href="https://github.com"
+                  className="font-mono"
+                  style={{
+                    fontSize: 12,
+                    letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    color: "#A8987F",
+                    textDecoration: "none",
+                    borderBottom: "1px solid #4A423A",
+                    paddingBottom: 2,
+                  }}
+                >
+                  Read the source
+                </Link>
+              </div>
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 14 }}>
+              <PassportMark size={140} color="#F1EBDD" />
+              <span className="font-mono" style={{ fontSize: 10, letterSpacing: "0.18em", color: "#A8987F" }}>
+                ATTESTED · 2026
+              </span>
+            </div>
           </div>
-          <h2 style={{ fontFamily: "var(--font-sora-var), sans-serif", fontSize: "clamp(30px, 4vw, 52px)", fontWeight: 700, color: "#0D1B2A", letterSpacing: "-1.2px", lineHeight: 1.12, marginBottom: 20 }}>
-            Your skills exist.<br />
-            <span style={{ color: "#0F2D52" }}>Now prove them.</span>
-          </h2>
-          <p style={{ fontSize: 17, color: "#6B7280", marginBottom: 40 }}>
-            Join 2.4 million professionals who already have their Skill Passport.
-          </p>
-          <Link href="/onboard" style={{
-            display: "inline-flex", alignItems: "center", gap: 8, textDecoration: "none",
-            background: "#0F2D52", color: "#FAF8F4", fontWeight: 600, fontSize: 16,
-            padding: "16px 40px", borderRadius: 12,
-            boxShadow: "0 4px 24px rgba(15,45,82,0.32)",
-            transition: "all 0.2s",
-          }}>
-            Get Your Skill Passport →
-          </Link>
         </div>
       </section>
 
       <Footer />
     </>
+  );
+}
+
+/* ─── helpers ─────────────────────────────────────────────────── */
+
+function SectionHead({
+  numeral,
+  eyebrow,
+  title,
+}: {
+  numeral: string;
+  eyebrow: string;
+  title: string;
+}) {
+  return (
+    <div style={{ marginBottom: 56, display: "grid", gridTemplateColumns: "120px minmax(0, 1fr)", gap: 32, alignItems: "end" }}>
+      <span className="numeral">{numeral}</span>
+      <div>
+        <div className="font-mono" style={{ fontSize: 11, letterSpacing: "0.22em", color: "#2D5F3F", textTransform: "uppercase", marginBottom: 14 }}>
+          {eyebrow}
+        </div>
+        <h2 className="serif-display heading-lg">{title}</h2>
+      </div>
+    </div>
+  );
+}
+
+function CitationLine({ n, source, excerpt }: { n: number; source: string; excerpt: string }) {
+  return (
+    <div style={{ display: "grid", gridTemplateColumns: "26px auto 1fr", gap: 12, alignItems: "start" }}>
+      <span className="font-mono" style={{ fontSize: 11, color: "#2D5F3F", letterSpacing: "0.06em", paddingTop: 2 }}>
+        [{n}]
+      </span>
+      <span className="font-mono" style={{ fontSize: 10.5, color: "#8C8273", letterSpacing: "0.08em", textTransform: "uppercase", paddingTop: 3 }}>
+        {source}
+      </span>
+      <span style={{ fontFamily: "var(--font-display)", fontSize: 14, fontStyle: "italic", color: "#4A423A", lineHeight: 1.45 }}>
+        &ldquo;{excerpt}&rdquo;
+      </span>
+    </div>
+  );
+}
+
+/* The mock "passport spread" on the right of the hero */
+function DocumentSpread() {
+  return (
+    <div
+      style={{
+        position: "relative",
+        background: "#FBF6E8",
+        border: "1px solid #1A1714",
+        padding: "26px 28px",
+        boxShadow: "8px 8px 0 0 #1A1714",
+        transform: "rotate(2deg)",
+      }}
+    >
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 16 }}>
+        <span className="font-mono" style={{ fontSize: 9.5, letterSpacing: "0.18em", color: "#8C8273" }}>
+          PASSPORT · No. 0047
+        </span>
+        <PassportMark size={36} spinning={false} />
+      </div>
+
+      <div className="hairline-double" style={{ marginBottom: 16 }} />
+
+      <div className="font-mono" style={{ fontSize: 9.5, color: "#8C8273", letterSpacing: "0.1em", marginBottom: 4 }}>
+        BEARER
+      </div>
+      <div className="serif-display" style={{ fontSize: 22, fontWeight: 380, marginBottom: 4 }}>
+        Ibrahim Ibrahim
+      </div>
+      <div className="font-mono" style={{ fontSize: 10.5, color: "#4A423A", letterSpacing: "0.04em", marginBottom: 22 }}>
+        @devwraithe · Cosmos
+      </div>
+
+      <div className="font-mono" style={{ fontSize: 9.5, color: "#8C8273", letterSpacing: "0.1em", marginBottom: 10 }}>
+        EVIDENCE-CITED CLAIMS · 7
+      </div>
+
+      <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 7, marginBottom: 18 }}>
+        {[
+          { skill: "rust", conf: "high" },
+          { skill: "solana", conf: "high" },
+          { skill: "smart-contract-engineering", conf: "high" },
+          { skill: "systems-programming", conf: "med" },
+          { skill: "self-directed-learning", conf: "med" },
+        ].map((c) => (
+          <li key={c.skill} style={{ display: "grid", gridTemplateColumns: "1fr auto", gap: 10, alignItems: "center", paddingBottom: 6, borderBottom: "1px dashed #D9CFB8" }}>
+            <span style={{ fontFamily: "var(--font-display)", fontStyle: "italic", fontSize: 16, color: "#1A1714" }}>{c.skill}</span>
+            <span className="font-mono" style={{ fontSize: 9, letterSpacing: "0.1em", color: c.conf === "high" ? "#2D5F3F" : "#4A423A", textTransform: "uppercase" }}>
+              {c.conf}
+            </span>
+          </li>
+        ))}
+      </ul>
+
+      <div style={{ display: "flex", justifyContent: "flex-end", paddingTop: 8 }}>
+        <div className="rubber-stamp" style={{ fontSize: 13 }}>
+          ISSUED
+          <span className="font-mono" style={{ fontSize: 8.5, fontStyle: "normal", letterSpacing: "0.12em", marginTop: 2, fontWeight: 500 }}>
+            APR · 2026
+          </span>
+        </div>
+      </div>
+    </div>
   );
 }

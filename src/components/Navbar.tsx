@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import PassportMark from "./PassportMark";
 
 const NAV_LINKS = [
-  { href: "/#how-it-works", label: "How It Works" },
-  { href: "/employers/discover", label: "For Employers" },
+  { href: "/#protocol", label: "Protocol" },
+  { href: "/employers/discover", label: "Employers" },
   { href: "/ignite", label: "Ignite" },
-  { href: "/skill-map", label: "Skill Map" },
+  { href: "/skill-map", label: "Atlas" },
 ];
 
 export default function Navbar() {
@@ -27,32 +28,88 @@ export default function Navbar() {
         left: 0,
         right: 0,
         zIndex: 100,
-        transition: "all 0.3s ease",
-        padding: scrolled ? "14px 0" : "22px 0",
-        background: scrolled
-          ? "rgba(250,248,244,0.92)"
-          : "transparent",
-        backdropFilter: scrolled ? "blur(16px)" : "none",
-        borderBottom: scrolled
-          ? "1px solid rgba(15,45,82,0.08)"
-          : "1px solid transparent",
+        background: scrolled ? "rgba(241,235,221,0.92)" : "transparent",
+        backdropFilter: scrolled ? "blur(10px) saturate(120%)" : "none",
+        WebkitBackdropFilter: scrolled ? "blur(10px) saturate(120%)" : "none",
+        borderBottom: scrolled ? "1px solid rgba(26,23,20,0.18)" : "1px solid transparent",
+        transition: "background 0.25s ease, border-color 0.25s ease",
       }}
     >
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 48px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        {/* Logo */}
-        <Link href="/" style={{ textDecoration: "none" }}>
-          <span style={{ fontFamily: "var(--font-sora-var), sans-serif", fontWeight: 700, fontSize: 20, color: "#0F2D52", letterSpacing: "-0.5px" }}>
-            prove<span style={{ color: "#2A6FBF" }}>work</span>
-          </span>
+      <div
+        style={{
+          maxWidth: 1240,
+          margin: "0 auto",
+          padding: scrolled ? "12px 40px" : "20px 40px",
+          display: "grid",
+          gridTemplateColumns: "auto 1fr auto",
+          alignItems: "center",
+          gap: 32,
+          transition: "padding 0.25s ease",
+        }}
+      >
+        {/* Lockup: mark + wordmark */}
+        <Link
+          href="/"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 14,
+            textDecoration: "none",
+            color: "#1A1714",
+          }}
+        >
+          <div style={{ width: scrolled ? 36 : 44, height: scrolled ? 36 : 44, transition: "all 0.25s ease" }}>
+            <PassportMark size={scrolled ? 36 : 44} />
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", lineHeight: 1 }}>
+            <span
+              className="font-display"
+              style={{
+                fontSize: scrolled ? 22 : 26,
+                fontWeight: 380,
+                letterSpacing: "-0.025em",
+                fontStyle: "italic",
+                fontVariationSettings: '"opsz" 144',
+                transition: "font-size 0.25s ease",
+              }}
+            >
+              ProveWork
+            </span>
+            <span className="font-mono" style={{ fontSize: 9, letterSpacing: "0.18em", color: "#8C8273", marginTop: 3 }}>
+              OPEN · TALENT · PROTOCOL
+            </span>
+          </div>
         </Link>
 
         {/* Links */}
-        <ul style={{ display: "flex", gap: 36, listStyle: "none", margin: 0, padding: 0 }}>
+        <ul
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: 36,
+            listStyle: "none",
+            margin: 0,
+            padding: 0,
+          }}
+        >
           {NAV_LINKS.map((l) => (
             <li key={l.href}>
-              <Link href={l.href} style={{ textDecoration: "none", fontSize: 14, fontWeight: 500, color: "#6B7280", transition: "color 0.2s" }}
-                onMouseEnter={e => (e.currentTarget.style.color = "#0F2D52")}
-                onMouseLeave={e => (e.currentTarget.style.color = "#6B7280")}
+              <Link
+                href={l.href}
+                className="font-mono"
+                style={{
+                  textDecoration: "none",
+                  fontSize: 11,
+                  fontWeight: 500,
+                  letterSpacing: "0.15em",
+                  textTransform: "uppercase",
+                  color: "#4A423A",
+                  transition: "color 0.15s ease",
+                  position: "relative",
+                  paddingBottom: 4,
+                }}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#2D5F3F")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "#4A423A")}
               >
                 {l.label}
               </Link>
@@ -61,26 +118,34 @@ export default function Navbar() {
         </ul>
 
         {/* Actions */}
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <Link href="/auth/login" style={{
-            textDecoration: "none", fontSize: 13, fontWeight: 600, color: "#0F2D52",
-            padding: "8px 18px", borderRadius: 999, border: "1.5px solid rgba(15,45,82,0.18)",
-            transition: "all 0.2s",
-          }}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "#0F2D52"; (e.currentTarget as HTMLElement).style.background = "rgba(15,45,82,0.04)"; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(15,45,82,0.18)"; (e.currentTarget as HTMLElement).style.background = "transparent"; }}
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <Link
+            href="/auth/login"
+            className="font-mono"
+            style={{
+              fontSize: 11,
+              fontWeight: 500,
+              color: "#4A423A",
+              textDecoration: "none",
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+            }}
           >
             Sign In
           </Link>
-          <Link href="/onboard" style={{
-            textDecoration: "none", fontSize: 13, fontWeight: 600, color: "#FAF8F4",
-            padding: "8px 20px", borderRadius: 999, background: "#0F2D52",
-            boxShadow: "0 2px 12px rgba(15,45,82,0.28)", transition: "all 0.2s",
-          }}
-            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "#0a1f3a"; (e.currentTarget as HTMLElement).style.transform = "translateY(-1px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 16px rgba(15,45,82,0.35)"; }}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#0F2D52"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 2px 12px rgba(15,45,82,0.28)"; }}
+          <Link
+            href="/onboard"
+            className="btn-ink"
+            style={{
+              padding: "10px 18px",
+              fontSize: 12,
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              fontFamily: "var(--font-mono)",
+              fontWeight: 500,
+            }}
           >
-            Get Started
+            Issue passport →
           </Link>
         </div>
       </div>
