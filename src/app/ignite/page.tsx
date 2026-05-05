@@ -60,9 +60,36 @@ const PROBLEMS = [
     deadline: 3, applicants: 18, maxApplicants: 18, open: false, hot: false,
     category: "Data",
   },
+  {
+    id: 7, title: "Yoruba–English community translator brief",
+    company: "ProveWork Community", logo: "P", logoColor: "#0F2D52", logoGrad: "135deg, #0F2D52, #2A6FBF",
+    desc: "Provide accurate Yoruba-to-English translation of community skills briefs, worker testimonials, and onboarding materials. Must be fluent in both languages with cultural context.",
+    skills: ["Yoruba", "English", "Community Engagement"],
+    reward: "$150", rewardType: "cash",
+    deadline: 7, applicants: 4, maxApplicants: 10, open: true, hot: false,
+    category: "Language",
+  },
+  {
+    id: 8, title: "Field data collector — Lagos informal markets",
+    company: "SkillMap Africa", logo: "S", logoColor: "#16a34a", logoGrad: "135deg, #16a34a, #15803d",
+    desc: "Map and document informal market vendor locations across three Lagos LGAs. Collect GPS coordinates, vendor categories, and estimated workforce size. Deliver a structured dataset.",
+    skills: ["Field Research", "Data Collection", "GPS Mapping"],
+    reward: "$200", rewardType: "cash",
+    deadline: 14, applicants: 2, maxApplicants: 8, open: true, hot: true,
+    category: "Field Research",
+  },
+  {
+    id: 9, title: "Short-form video: document artisan skills",
+    company: "ProveWork Media", logo: "M", logoColor: "#E8813A", logoGrad: "135deg, #E8813A, #f59e0b",
+    desc: "Produce 3–5 short-form videos (60–90s each) documenting artisans performing their craft. Videos become verified credential evidence in their Skill Passports. Must include subtitles.",
+    skills: ["Video Production", "Storytelling", "Editing"],
+    reward: "$250", rewardType: "cash",
+    deadline: 10, applicants: 6, maxApplicants: 12, open: true, hot: false,
+    category: "Content",
+  },
 ];
 
-const CATEGORIES = ["All", "Backend", "Blockchain", "Design", "AI / ML", "Mobile", "Data"];
+const CATEGORIES = ["All", "Backend", "Blockchain", "Design", "AI / ML", "Mobile", "Data", "Language", "Field Research", "Content"];
 
 const CATEGORY_CONFIG: Record<string, { bg: string; color: string; border: string }> = {
   Backend:    { bg: "rgba(15,45,82,0.08)",    color: "#0F2D52",  border: "rgba(15,45,82,0.15)" },
@@ -70,7 +97,10 @@ const CATEGORY_CONFIG: Record<string, { bg: string; color: string; border: strin
   Design:     { bg: "rgba(232,129,58,0.08)",  color: "#E8813A",  border: "rgba(232,129,58,0.20)" },
   "AI / ML":  { bg: "rgba(22,163,74,0.08)",   color: "#16a34a",  border: "rgba(22,163,74,0.20)" },
   Mobile:     { bg: "rgba(42,111,191,0.08)",  color: "#2A6FBF",  border: "rgba(42,111,191,0.20)" },
-  Data:       { bg: "rgba(107,114,128,0.08)", color: "#6B7280",  border: "rgba(107,114,128,0.20)" },
+  Data:           { bg: "rgba(107,114,128,0.08)", color: "#6B7280",  border: "rgba(107,114,128,0.20)" },
+  Language:       { bg: "rgba(15,45,82,0.08)",    color: "#0F2D52",  border: "rgba(15,45,82,0.18)" },
+  "Field Research": { bg: "rgba(22,163,74,0.08)", color: "#16a34a",  border: "rgba(22,163,74,0.20)" },
+  Content:        { bg: "rgba(232,129,58,0.08)",  color: "#E8813A",  border: "rgba(232,129,58,0.20)" },
 };
 
 const REWARD_CONFIG: Record<string, { bg: string; color: string; border: string; icon: string }> = {

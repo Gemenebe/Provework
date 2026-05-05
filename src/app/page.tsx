@@ -31,6 +31,24 @@ const SKILLS_SHOWCASE = [
   { label: "GraphQL", verified: true }, { label: "Machine Learning", verified: false },
 ];
 
+const WORKER_CATEGORIES = [
+  { icon: "🧵", label: "Artisans & Makers",            example: "Tailors, welders, potters" },
+  { icon: "🤝", label: "Soft Skills",                  example: "Leadership, communication, negotiation" },
+  { icon: "🌾", label: "Agriculture & Trade",          example: "Farmers, vendors, mechanics" },
+  { icon: "💻", label: "Digital & Tech",               example: "Developers, designers, analysts" },
+  { icon: "📚", label: "Education & Care",             example: "Teachers, health workers, community organisers" },
+  { icon: "🎨", label: "Creative & Cultural",          example: "Artists, musicians, writers" },
+  { icon: "🏭", label: "Industry & Manufacturing",     example: "Technicians, plant operators" },
+  { icon: "🏗️", label: "Construction & Infrastructure", example: "Masons, electricians, plumbers" },
+];
+
+const SCORE_DIMENSIONS = [
+  { name: "Depth",         desc: "Mastery in evidence — the depth of verified skill signals in your portfolio." },
+  { name: "Velocity",      desc: "Speed of learning — how quickly new verifiable skills are being acquired." },
+  { name: "Reliability",   desc: "Consistency of work — track record of completing and delivering over time." },
+  { name: "Collaboration", desc: "Trust of peers — verified endorsements and co-work signals from others." },
+];
+
 export default function LandingPage() {
   return (
     <>
@@ -94,6 +112,27 @@ export default function LandingPage() {
               </Link>
             </div>
 
+            {/* Hack-Nation credibility badge */}
+            <div style={{ marginTop: 20 }}>
+              <div style={{
+                display: "inline-flex", alignItems: "center", gap: 10,
+                border: "1px solid rgba(15,45,82,0.14)", borderRadius: 999,
+                padding: "5px 14px 5px 6px",
+                background: "rgba(250,248,244,0.70)", backdropFilter: "blur(8px)",
+              }}>
+                <span style={{
+                  fontSize: 9, fontWeight: 800, color: "#FAF8F4",
+                  background: "#0F2D52", borderRadius: 999,
+                  padding: "2px 9px", letterSpacing: "0.8px", textTransform: "uppercase", whiteSpace: "nowrap",
+                }}>
+                  Vol. I · No. 001
+                </span>
+                <span style={{ fontSize: 11, color: "#6B7280", lineHeight: 1.4 }}>
+                  Built at Hack-Nation 2026 in partnership with the World Bank · Challenge 05: Unmapped
+                </span>
+              </div>
+            </div>
+
             {/* Social proof */}
             <div style={{ display: "flex", alignItems: "center", gap: 16, marginTop: 40 }}>
               <div style={{ display: "flex" }}>
@@ -114,6 +153,32 @@ export default function LandingPage() {
             {/* Decorative glow */}
             <div style={{ position: "absolute", width: 360, height: 360, borderRadius: "50%", background: "radial-gradient(circle, rgba(42,111,191,0.10) 0%, transparent 70%)", pointerEvents: "none" }} />
             <PassportCard floating />
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════ PROBLEM DATA BLOCK ══════════════════════ */}
+      <section style={{ background: "#FAF8F4", borderTop: "1px solid rgba(15,45,82,0.09)", borderBottom: "1px solid rgba(15,45,82,0.09)", padding: "60px 0" }}>
+        <div style={{ ...MAX }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 0, borderLeft: "1px solid rgba(15,45,82,0.10)" }}>
+            {[
+              { stat: "1.8B",  label: "informal workers globally",      source: "ILO 2023" },
+              { stat: "73%",   label: "without formal credentials",      source: "World Bank 2024" },
+              { stat: "$15T",  label: "lost GDP from skills mismatch",   source: "McKinsey 2023" },
+            ].map((s) => (
+              <div key={s.label} style={{ padding: "0 44px", borderRight: "1px solid rgba(15,45,82,0.10)" }}>
+                <div style={{ fontFamily: "var(--font-sora-var), sans-serif", fontWeight: 700, fontSize: "clamp(38px, 4vw, 54px)", color: "#0F2D52", letterSpacing: "-2px", lineHeight: 1, marginBottom: 10 }}>
+                  {s.stat}
+                </div>
+                <div style={{ fontSize: 15, color: "#0D1B2A", fontWeight: 500, marginBottom: 5 }}>{s.label}</div>
+                <div style={{ fontSize: 10, color: "#6B7280", fontWeight: 700, letterSpacing: "1.2px", textTransform: "uppercase" }}>{s.source}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ borderTop: "1px solid rgba(15,45,82,0.09)", marginTop: 44, paddingTop: 24, textAlign: "center" }}>
+            <p style={{ fontFamily: "var(--font-sora-var), sans-serif", fontStyle: "italic", fontSize: 16, color: "#6B7280" }}>
+              Every week without ProveWork, 300 million people do real work that no system can see.
+            </p>
           </div>
         </div>
       </section>
@@ -156,6 +221,36 @@ export default function LandingPage() {
                 </div>
                 <h3 style={{ fontFamily: "var(--font-sora-var), sans-serif", fontWeight: 600, fontSize: 18, color: "#0D1B2A", marginBottom: 10 }}>{f.title}</h3>
                 <p style={{ fontSize: 14, color: "#6B7280", lineHeight: 1.65 }}>{f.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════ WORKER CATEGORIES ══════════════════════ */}
+      <section style={{ ...SECTION, background: "#FAF8F4", borderTop: "1px solid rgba(15,45,82,0.07)" }}>
+        <div style={MAX}>
+          <div style={{ textAlign: "center", marginBottom: 64 }}>
+            <div style={{ display: "inline-block", fontSize: 11, fontWeight: 700, color: "#2A6FBF", letterSpacing: "2px", textTransform: "uppercase", marginBottom: 14 }}>
+              For Every Worker
+            </div>
+            <h2 style={{ fontFamily: "var(--font-sora-var), sans-serif", fontSize: "clamp(26px, 3vw, 38px)", fontWeight: 700, color: "#0D1B2A", letterSpacing: "-0.8px", marginBottom: 14 }}>
+              Every kind of skill. Every kind of worker.
+            </h2>
+            <p style={{ fontSize: 16, color: "#6B7280", maxWidth: 520, margin: "0 auto" }}>
+              ProveWork verifies skills across every sector — not just tech. The informal economy is the world&apos;s largest economy.
+            </p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 18 }}>
+            {WORKER_CATEGORIES.map((cat) => (
+              <div key={cat.label} style={{
+                background: "rgba(255,255,255,0.75)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
+                border: "1px solid rgba(15,45,82,0.08)", borderRadius: 16, padding: "26px 22px",
+                boxShadow: "0 2px 12px rgba(15,45,82,0.05)",
+              }}>
+                <div style={{ fontSize: 28, marginBottom: 14 }}>{cat.icon}</div>
+                <div style={{ fontFamily: "var(--font-sora-var), sans-serif", fontWeight: 700, fontSize: 14, color: "#0D1B2A", marginBottom: 6 }}>{cat.label}</div>
+                <div style={{ fontSize: 12, color: "#6B7280", lineHeight: 1.6 }}>{cat.example}</div>
               </div>
             ))}
           </div>
@@ -261,6 +356,110 @@ export default function LandingPage() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* ══════════════════════ PROVEWORK SCORE ══════════════════════ */}
+      <section style={{ background: "#0F2D52", padding: "100px 0", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)", backgroundSize: "32px 32px", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: 700, height: 700, borderRadius: "50%", background: "radial-gradient(circle, rgba(42,111,191,0.18) 0%, transparent 60%)", pointerEvents: "none" }} />
+        <div style={{ ...MAX, position: "relative", zIndex: 1 }}>
+          <div style={{ textAlign: "center", marginBottom: 16 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.45)", letterSpacing: "2px", textTransform: "uppercase", marginBottom: 14 }}>
+              ProveWork Score
+            </div>
+            <h2 style={{ fontFamily: "var(--font-sora-var), sans-serif", fontSize: "clamp(26px, 3vw, 38px)", fontWeight: 700, color: "#FAF8F4", letterSpacing: "-0.8px", marginBottom: 0 }}>
+              The credit score for human potential.
+            </h2>
+            <div style={{ fontFamily: "var(--font-sora-var), sans-serif", fontWeight: 700, fontSize: "clamp(72px, 11vw, 132px)", color: "#FAF8F4", letterSpacing: "-5px", lineHeight: 1, margin: "28px 0 48px" }}>
+              0 – 1000
+            </div>
+          </div>
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.10)", maxWidth: 760, margin: "0 auto" }}>
+            {SCORE_DIMENSIONS.map((dim, i) => (
+              <div key={dim.name} style={{
+                display: "flex", alignItems: "baseline", gap: 32,
+                borderBottom: "1px solid rgba(255,255,255,0.08)",
+                padding: "22px 0",
+              }}>
+                <div style={{ fontFamily: "var(--font-sora-var), sans-serif", fontWeight: 700, fontSize: 16, color: "#FAF8F4", minWidth: 140, flexShrink: 0 }}>{dim.name}</div>
+                <div style={{ fontSize: 14, color: "rgba(255,255,255,0.54)", lineHeight: 1.6 }}>{dim.desc}</div>
+              </div>
+            ))}
+          </div>
+          <p style={{ textAlign: "center", fontSize: 13, color: "rgba(255,255,255,0.38)", marginTop: 36, letterSpacing: "0.2px" }}>
+            Calibrated by region to eliminate bias. Free for talent. Queryable by any institution.
+          </p>
+        </div>
+      </section>
+
+      {/* ══════════════════════ PARTNERSHIP ══════════════════════ */}
+      <section style={{ ...SECTION, background: "#FAF8F4", borderTop: "1px solid rgba(15,45,82,0.07)" }}>
+        <div style={MAX}>
+          <div style={{ textAlign: "center", marginBottom: 64 }}>
+            <div style={{ display: "inline-block", fontSize: 11, fontWeight: 700, color: "#2A6FBF", letterSpacing: "2px", textTransform: "uppercase", marginBottom: 14 }}>
+              Institutional Partners
+            </div>
+            <h2 style={{ fontFamily: "var(--font-sora-var), sans-serif", fontSize: "clamp(26px, 3vw, 38px)", fontWeight: 700, color: "#0D1B2A", letterSpacing: "-0.8px" }}>
+              Partner with the protocol.
+            </h2>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }}>
+            {/* Left: partnership model */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
+              {[
+                { title: "Co-design national pilots", body: "Work with our team to design and deploy ProveWork inside national workforce programmes. We bring the protocol; you bring the policy context and on-the-ground reach." },
+                { title: "Integrate into ATS and loan criteria", body: "The Skill Passport API connects directly to applicant tracking systems and financial inclusion tools — turning verified skills into a bankable, portable signal." },
+                { title: "License the API for national workforce mapping", body: "Aggregate anonymised skill data across regions to produce real-time workforce intelligence dashboards for ministries, development banks, and labour authorities." },
+              ].map((item) => (
+                <div key={item.title} style={{ borderLeft: "2px solid rgba(15,45,82,0.14)", paddingLeft: 22 }}>
+                  <div style={{ fontFamily: "var(--font-sora-var), sans-serif", fontWeight: 700, fontSize: 16, color: "#0D1B2A", marginBottom: 8 }}>{item.title}</div>
+                  <p style={{ fontSize: 14, color: "#6B7280", lineHeight: 1.7 }}>{item.body}</p>
+                </div>
+              ))}
+              <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 8 }}>
+                <a href="/partnership-brief.pdf" download style={{
+                  display: "inline-flex", alignItems: "center", gap: 8, textDecoration: "none",
+                  background: "#0F2D52", color: "#FAF8F4", fontWeight: 600, fontSize: 14,
+                  padding: "12px 24px", borderRadius: 12,
+                  boxShadow: "0 4px 20px rgba(15,45,82,0.28)",
+                }}>
+                  Download Partnership Brief
+                </a>
+                <a href="mailto:gemenebe@gmail.com" style={{
+                  display: "inline-flex", alignItems: "center", gap: 8, textDecoration: "none",
+                  background: "transparent", color: "#0F2D52", fontWeight: 600, fontSize: 14,
+                  padding: "12px 24px", borderRadius: 12, border: "1.5px solid rgba(15,45,82,0.30)",
+                }}>
+                  Request a conversation
+                </a>
+              </div>
+            </div>
+            {/* Right: partnership modes */}
+            <div style={{
+              background: "rgba(255,255,255,0.80)", backdropFilter: "blur(16px)", WebkitBackdropFilter: "blur(16px)",
+              border: "1px solid rgba(15,45,82,0.08)", borderRadius: 20, padding: "36px 32px",
+              boxShadow: "0 2px 16px rgba(15,45,82,0.06)",
+            }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: "#2A6FBF", letterSpacing: "2px", textTransform: "uppercase", marginBottom: 28 }}>
+                Partnership Modes
+              </div>
+              {[
+                { name: "Institutional Pilot",  desc: "Deploy inside a national programme. Co-designed, time-bounded, and independently measured." },
+                { name: "National Licence",      desc: "Full API access and white-label deployment for government bodies and development banks." },
+                { name: "API Integration",       desc: "Embed Skill Passport verification into existing ATS, HR, or financial inclusion platforms." },
+              ].map((mode, i) => (
+                <div key={mode.name} style={{
+                  borderBottom: i < 2 ? "1px solid rgba(15,45,82,0.07)" : "none",
+                  paddingBottom: i < 2 ? 22 : 0,
+                  marginBottom: i < 2 ? 22 : 0,
+                }}>
+                  <div style={{ fontFamily: "var(--font-sora-var), sans-serif", fontWeight: 700, fontSize: 15, color: "#0D1B2A", marginBottom: 5 }}>{mode.name}</div>
+                  <div style={{ fontSize: 13, color: "#6B7280", lineHeight: 1.6 }}>{mode.desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
