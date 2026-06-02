@@ -1,0 +1,114 @@
+{
+  "subject": {
+    "username": "Gemenebe",
+    "name": "Gem",
+    "bio": null,
+    "location": null,
+    "avatar_url": "https://avatars.githubusercontent.com/u/109741191?v=4",
+    "blog": "",
+    "followers": 0,
+    "public_repos": 4,
+    "joined": "2022-07-21T13:04:13Z"
+  },
+  "claims": [
+    {
+      "skill": "full-stack-development",
+      "claim_text": "Shipped a complete full-stack travel platform — a JavaScript/CSS/HTML frontend and a separate Python API backend — demonstrating end-to-end product ownership across the stack.",
+      "category": "shipping",
+      "confidence": "high",
+      "evidence": [
+        {
+          "uri": "https://github.com/Gemenebe/tripsPalcopy",
+          "source": "github-repo",
+          "excerpt": "tripsPalcopy — JavaScript frontend for the TripsPal travel platform (36 KB JS, 13 KB CSS, HTML)"
+        },
+        {
+          "uri": "https://github.com/Gemenebe/tripspalbackend",
+          "source": "github-repo",
+          "excerpt": "tripspalbackend — Python backend API service powering TripsPal"
+        }
+      ]
+    },
+    {
+      "skill": "typescript",
+      "claim_text": "Primary language for Provework — over 200 KB of TypeScript across a Next.js app with complex server-side streaming, multi-route API architecture, and type-safe data models.",
+      "category": "shipping",
+      "confidence": "high",
+      "evidence": [
+        {
+          "uri": "https://github.com/Gemenebe/Provework",
+          "source": "github-repo",
+          "excerpt": "Provework — TypeScript (203 788 bytes), CSS (24 941 bytes), JavaScript (2 080 bytes) — Next.js 16 developer passport platform"
+        }
+      ]
+    },
+    {
+      "skill": "next-js",
+      "claim_text": "Built Provework on Next.js 16 App Router with Turbopack — including SSE streaming API routes, server components, dynamic passport pages, and a multi-section dashboard.",
+      "category": "shipping",
+      "confidence": "high",
+      "evidence": [
+        {
+          "uri": "https://github.com/Gemenebe/Provework",
+          "source": "github-repo",
+          "excerpt": "Next.js 16.2.4 (Turbopack) · App Router · /api/scan SSE streaming route · /passport/[username] dynamic route · /employers/discover · /skill-map"
+        },
+        {
+          "uri": "https://github.com/Gemenebe/Provework/commits/master",
+          "source": "github-commit",
+          "excerpt": "initial commit → chore: refinements → chore: more updates — iterative build-and-refine pattern across the full app"
+        }
+      ]
+    },
+    {
+      "skill": "python-backend",
+      "claim_text": "Authored a standalone Python API backend for TripsPal, demonstrating server-side development separate from the frontend codebase.",
+      "category": "shipping",
+      "confidence": "medium",
+      "evidence": [
+        {
+          "uri": "https://github.com/Gemenebe/tripspalbackend",
+          "source": "github-repo",
+          "excerpt": "tripspalbackend — Python (9 805 bytes) — backend service for TripsPal travel platform"
+        }
+      ]
+    },
+    {
+      "skill": "ai-integration",
+      "claim_text": "Integrated Claude (Anthropic) AI into Provework to analyse GitHub activity via tool use and synthesize verifiable skill claims as structured JSON — real AI doing real work in production.",
+      "category": "shipping",
+      "confidence": "high",
+      "evidence": [
+        {
+          "uri": "https://github.com/Gemenebe/Provework",
+          "source": "github-repo",
+          "excerpt": "src/lib/claude.ts — Anthropic SDK · synthesizeClaims() streams Claim objects via SSE using Claude tool-use · evidence citations grounded in actual GitHub repo content"
+        }
+      ]
+    },
+    {
+      "skill": "product-shipping",
+      "claim_text": "Has shipped two distinct products independently — a full-stack travel companion platform (TripsPal) and an AI-powered developer credentialing system (ProveWork) — showing a pattern of going from zero to deployed.",
+      "category": "shipping",
+      "confidence": "medium",
+      "evidence": [
+        {
+          "uri": "https://github.com/Gemenebe/tripsPalcopy",
+          "source": "github-repo",
+          "excerpt": "tripsPalcopy — JavaScript travel platform frontend shipped Nov 2022"
+        },
+        {
+          "uri": "https://github.com/Gemenebe/Provework",
+          "source": "github-repo",
+          "excerpt": "Provework — AI developer passport platform built Apr–May 2026"
+        }
+      ]
+    }
+  ],
+  "generated_at": "2026-06-02T00:00:00.000Z",
+  "source_signals": {
+    "repos_analyzed": 4,
+    "languages": ["TypeScript", "JavaScript", "Python", "CSS", "HTML"],
+    "total_stars": 0
+  }
+}
