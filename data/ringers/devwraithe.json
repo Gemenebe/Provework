@@ -1,0 +1,142 @@
+{
+  "subject": {
+    "username": "devwraithe",
+    "name": "Ibrahim Ibrahim",
+    "bio": "I've no idea what I am but I definitely know what I want",
+    "location": "Cosmos",
+    "avatar_url": "https://avatars.githubusercontent.com/u/40020041?v=4",
+    "blog": null,
+    "followers": 41,
+    "public_repos": 60,
+    "joined": "2018-05-08T22:53:14Z"
+  },
+  "claims": [
+    {
+      "skill": "rust",
+      "claim_text": "Writes production-quality Rust across very different domains — a Redis-like TCP server with concurrent clients and key expiration, plus low-level Solana programs in the Pinocchio framework.",
+      "category": "shipping",
+      "confidence": "high",
+      "evidence": [
+        {
+          "uri": "https://github.com/devwraithe/redis-like-kv",
+          "source": "github-readme",
+          "excerpt": "A minimal Redis-like TCP server built in Rust. Supports concurrent clients, key expiration, and structured logging."
+        },
+        {
+          "uri": "https://github.com/devwraithe/pinocchio-vault",
+          "source": "github-repo",
+          "excerpt": "Blueshift-challenge Pinocchio vault program — Rust"
+        },
+        {
+          "uri": "https://github.com/devwraithe/post",
+          "source": "github-repo",
+          "excerpt": "P.O.S.T is short for Program-Owned SOL Treasury. It's a treasury factory — Rust"
+        }
+      ]
+    },
+    {
+      "skill": "solana",
+      "claim_text": "Has shipped real, deployed Solana programs end-to-end — including a tipping dApp with a live frontend, on-chain program ID, and PDA-based user profiles.",
+      "category": "shipping",
+      "confidence": "high",
+      "evidence": [
+        {
+          "uri": "https://github.com/devwraithe/euergetes#readme",
+          "source": "github-readme",
+          "excerpt": "Deployed Frontend URL: https://euergetes.vercel.app · Solana Program ID: EjYxegxKpBLxr1cZfbVzkGKWdD31F4w23kd5x2AMeB11"
+        },
+        {
+          "uri": "https://github.com/devwraithe/euergetes#readme",
+          "source": "github-readme",
+          "excerpt": "A decentralized instant tipping application built on Solana that enables users to send tips directly to content creators, service providers, or anyone with a Solana wallet."
+        }
+      ]
+    },
+    {
+      "skill": "smart-contract-engineering",
+      "claim_text": "Has implemented the canonical primitives of on-chain finance — escrows, vaults, flashloans, and a fundraiser — in the Pinocchio framework.",
+      "category": "shipping",
+      "confidence": "high",
+      "evidence": [
+        {
+          "uri": "https://github.com/devwraithe/pinocchio-flashloan",
+          "source": "github-repo",
+          "excerpt": "Blueshift-challenge Pinocchio flashloan program"
+        },
+        {
+          "uri": "https://github.com/devwraithe/bs-pinocchio-escrow",
+          "source": "github-repo",
+          "excerpt": "Blueshift-challenge Pinocchio escrow program"
+        },
+        {
+          "uri": "https://github.com/devwraithe/pinocchio-fundraiser",
+          "source": "github-repo",
+          "excerpt": "Pinocchio fundraiser"
+        }
+      ]
+    },
+    {
+      "skill": "systems-programming",
+      "claim_text": "Reaches for the right concurrency primitives without flinching — built a multi-client TCP server using Rust's ownership model, std::thread, and Arc<Mutex<T>>.",
+      "category": "reasoning",
+      "confidence": "medium",
+      "evidence": [
+        {
+          "uri": "https://github.com/devwraithe/redis-like-kv#readme",
+          "source": "github-readme",
+          "excerpt": "Concurrent clients via std::thread + Arc<Mutex<Database>>. Lazy expiration — expired keys are evicted on GET. Structured logging via the tracing crate."
+        }
+      ]
+    },
+    {
+      "skill": "self-directed-learning",
+      "claim_text": "Treats unfamiliar territory as a build target. Picks a meaty topic — Rust ownership, threading, TCP — and ships a working artefact at the end of the week.",
+      "category": "research",
+      "confidence": "medium",
+      "evidence": [
+        {
+          "uri": "https://github.com/devwraithe/redis-like-kv#readme",
+          "source": "github-readme",
+          "excerpt": "Built as a 3-day learning project to explore Rust concepts including ownership, threading, Arc<Mutex<T>>, and TCP networking."
+        }
+      ]
+    },
+    {
+      "skill": "technical-writing",
+      "claim_text": "Documents projects in the way good open-source maintainers do — explicit deployment URLs, program IDs, architecture sections, PDA seed conventions, and a usage walkthrough.",
+      "category": "teaching",
+      "confidence": "medium",
+      "evidence": [
+        {
+          "uri": "https://github.com/devwraithe/euergetes#readme",
+          "source": "github-readme",
+          "excerpt": "PDAs Used: Tipper Stats PDA — Derived from seeds [\"tipper_stats\", tipper_wallet_pubkey] — stores tipping statistics for each user including total tips sent, total amount tipped, biggest tip, and last tip timestamp."
+        }
+      ]
+    },
+    {
+      "skill": "typescript",
+      "claim_text": "Bridges low-level Solana programs to TypeScript clients — escrow + scheduler integrations using Tuktuk, plus a Solana GPT escrow.",
+      "category": "shipping",
+      "confidence": "medium",
+      "evidence": [
+        {
+          "uri": "https://github.com/devwraithe/escrow-tuktuk",
+          "source": "github-repo",
+          "excerpt": "Improved escrow-litesvm example but with TukTuk for scheduler and cron — TypeScript"
+        },
+        {
+          "uri": "https://github.com/devwraithe/solana-gpt-tuktuk",
+          "source": "github-repo",
+          "excerpt": "Escrow program using Tuktuk and Solana GPT — TypeScript"
+        }
+      ]
+    }
+  ],
+  "generated_at": "2026-04-26T11:00:00.000Z",
+  "source_signals": {
+    "repos_analyzed": 6,
+    "languages": ["Rust", "TypeScript", "Makefile", "JavaScript"],
+    "total_stars": 1
+  }
+}
